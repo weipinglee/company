@@ -1,10 +1,11 @@
 <?php
 
-class IndexController extends Yaf\Controller_Abstract {
+class IndexController extends initController {
 
 	public function indexAction() {
-		echo 'admin';
-		print_r($_GET);exit;
+
+		//echo $this->getViewpath();
+
 
 	}
 }

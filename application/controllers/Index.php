@@ -1,12 +1,12 @@
 <?php
 
-class IndexController extends Yaf\Controller_Abstract {
-	public function init() {
+class IndexController extends initController{
 
-	}
 
 	public function indexAction() {
-		print_r($_GET);return false;
+		echo 'ddd';
+
+
 	}
 
 	public function aAction(){

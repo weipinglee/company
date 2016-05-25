@@ -14,6 +14,6 @@ if (!extension_loaded('yaf')) {
         include(APPLICATION_PATH . '/framework/loader.php');
     
 }
-error_reporting(E_ALL);
+header("Content-Type:text/html;charset=utf-8");
 $app = new Yaf\Application(APPLICATION_PATH . "/conf/application.ini", 'production');
 $app->bootstrap()->run();
