@@ -24,7 +24,8 @@ class wittyAdapter implements \Yaf\View_Interface {
 		// set template path
 		$this->witty = new witty();
 
-		//初始化配置
+
+		//初始化目录
 		$client = client::getDevice();
 		$this->witty->setConfig($config);
 		$this->witty->setClient($client);

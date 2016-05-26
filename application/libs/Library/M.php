@@ -14,7 +14,7 @@ class M{
 
 	protected $db = null;//DB实例
 
-    private $tablePre = '';
+    private $tablePre = 'dou_';
 
 	public $tableData = array();//插入或更新的数据
 
