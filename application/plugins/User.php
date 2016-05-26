@@ -5,6 +5,12 @@ class UserPlugin extends Yaf\Plugin_Abstract{
 	}
 
 	public function routerShutdown(Yaf\Request_Abstract $request, Yaf\Response_Abstract $response) {
+		//设置视图类的模块和控制器
+		$moduleName = $request->getModuleName();
+		$controllerName = $request->getControllerName();
+		$witty = new \Library\views\witty();
+		$witty->setRouter($moduleName,$controllerName);
+
 
 	}
 

@@ -12,6 +12,14 @@ use \Library\url;
 class witty{
 
     protected static $moduleName = 'index';
+
+    protected static $controllerName = '';
+
+
+    protected static $clientName = '';
+
+    protected static $config = '';
+
     /**
      * List of Variables which will be replaced in the
      * template
@@ -20,6 +28,7 @@ class witty{
      */
     protected $_tpl_vars = array();
 
+    protected $_root_dir = '';
     //布局文件夹名称
     protected $layoutName = 'layout';
     //模板目录
@@ -36,22 +45,27 @@ class witty{
 
     protected $_tpl_ext = '.tpl';
 
-    public function setModuleName($name=''){
-        self::$moduleName = $name;
+    //设置模块名和控制器名
+    public function setRouter($module,$controller){
+        self::$moduleName = strtolower($module);
+        self::$controllerName = strtolower($controller);
     }
 
-    /**
-     *设置模板目录
-     */
+    public function setClient($c){
+        self::$clientName = $c;
+    }
+
+    public function setConfig($config){
+        self::$config = $config;
+    }
+
+
     public function setTplDir($dir){
-        if ($this->isAbsoluteDir($dir)){//判断是否是绝对路径
+        if ($this->isAbsoluteDir($dir)) {//判断是否是绝对路径
             $this->_tpl_dir = $dir;
-            if(!file_exists($this->_tpl_dir) && !mkdir($this->_tpl_dir)){
-                exit('编译目录不存在');
-            }
         }
-
     }
+
 
     /**
      * 设置布局模板目录
@@ -114,25 +128,78 @@ class witty{
     }
 
 
+    //获取模板名称
+    private function getTemplateName(){
+        $template = isset(self::$config[self::$moduleName][self::$clientName]['template']) ? self::$config[self::$moduleName][self::$clientName]['template'] : self::$clientName ;
+        return $template;
+    }
+    /**
+     * 获取模板目录
+     * @return string
+     */
+    protected function getTplDir(){
+        $config = self::$config;
+        $templateName = $this->getTemplateName();
+        if(self::$moduleName=='index'){
+
+            $path =  $config['root_dir'].DIRECTORY_SEPARATOR.'views'
+                .DIRECTORY_SEPARATOR.$templateName.DIRECTORY_SEPARATOR;
+        }
+        else{
+            $path =  $config['root_dir'].DIRECTORY_SEPARATOR.
+                'modules'.DIRECTORY_SEPARATOR.self::$moduleName
+                .DIRECTORY_SEPARATOR.'views'.DIRECTORY_SEPARATOR.
+                $templateName.DIRECTORY_SEPARATOR;
+        }
+
+        if(!file_exists($path) ){
+            exit('模板目录不存在');
+        }
+
+        return $path;
+    }
+
+    /**
+     * 获取编译目录
+     * @return string
+     */
+    protected function getCompileDir(){
+        $templateName = $this->getTemplateName();
+        $compileDir = isset(self::$config['compile_dir']) ? self::$config['compile_dir'] : self::$config['root_dir'].DIRECTORY_SEPARATOR.'runtime';
+        $compileDir = $compileDir.DIRECTORY_SEPARATOR.self::$moduleName
+                    .DIRECTORY_SEPARATOR.$templateName .DIRECTORY_SEPARATOR
+                    .self::$controllerName;
+
+        if(!file_exists($compileDir) && !mkdir($compileDir,'0777',true)){
+            exit('编译目录不存在');
+        }
+        return $compileDir;
+    }
+
+    protected function getLayoutDir(){
+        return $this->_tpl_dir.'layout'.DIRECTORY_SEPARATOR;
+    }
     /**
      * 渲染模板
      * @param $tpl  模板文件
      */
     public function render($tpl){
 
+        //获取模板目录
+        $this->_tpl_dir = $this->getTplDir();
         $template = $this->_tpl_dir.$tpl;
         extract($this->_tpl_vars);
 
-
+        //获取编译目录
+        $this->_compile_dir = $this->getCompileDir();
         if (!file_exists($template)) {
             exit('ERROR:模板文件不存在！');
         }
-        $parse_path = $this->_compile_dir.self::$moduleName;
-        if(!file_exists($parse_path) && !mkdir($parse_path)){
-            exit('缓存目录不存在');
-        }
-        $parse_file = $parse_path.'/'.md5($tpl).'.php';
-        $layout_file = $this->_tpl_dir.DIRECTORY_SEPARATOR.$this->layoutName.DIRECTORY_SEPARATOR.$this->_tpl_ext;
+        $parse_file = $this->_compile_dir.'/'.md5($tpl).'.php';
+
+        //获取布局文件
+        $layout_file =  $this->getLayoutDir().$this->layout.$this->_tpl_ext;
+
         if(!file_exists($parse_file) || (filemtime($template) > filemtime($parse_file)) || (file_exists($layout_file) && (filemtime($layout_file) > filemtime($parse_file)))){
 
 
@@ -144,8 +211,6 @@ class witty{
             $content = preg_replace_callback('/{include:([\/a-zA-Z0-9_\.]+)}/',array($this,'includeFile'), $content);
 
             $content = preg_replace_callback('/{(\/?)(\$|url|root|views|echo|foreach|set|if|elseif|else|while|for|code|areatext|area)\s*(:?)([^}]*)}/i', array($this,'translate'), $content);
-
-
 
             if (!file_put_contents($parse_file, $content) ) {
                 exit('编译文件生成出错！');
@@ -175,6 +240,7 @@ class witty{
             //在layout中替换view
             $layoutContent = file_get_contents($layoutFile);
             $content = str_replace('{content}',$viewContent,$layoutContent);
+
             return $content;
         }
         else

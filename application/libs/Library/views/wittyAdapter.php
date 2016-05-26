@@ -13,8 +13,6 @@ class wittyAdapter implements \Yaf\View_Interface {
 
 	public $layout = '';
 
-	protected $pc_name = 'pc';//pc端模板目录文件夹名
-	protected $mobile_name = 'mobile';
 
 	/**
 	 * Constructor.
@@ -26,16 +24,11 @@ class wittyAdapter implements \Yaf\View_Interface {
 		// set template path
 		$this->witty = new witty();
 
-		//初始化目录
+		//初始化配置
 		$client = client::getDevice();
-		$client_name = $client=='pc' ? DIRECTORY_SEPARATOR.$this->pc_name.DIRECTORY_SEPARATOR : DIRECTORY_SEPARATOR.$this->mobile_name.DIRECTORY_SEPARATOR;
+		$this->witty->setConfig($config);
+		$this->witty->setClient($client);
 
-		$this->witty->setTplDir($config['tpl_dir'].$client_name);
-		$this->witty->setCompileDir($config['compile_dir'].$client_name);
-		$this->witty->setCacheDir($config['cache_dir']);
-
-
-		//$this->_options = $options;
 	}
 
 	public function setLayout($layout){
