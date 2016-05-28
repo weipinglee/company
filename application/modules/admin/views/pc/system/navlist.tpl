@@ -22,7 +22,7 @@
        <td align="center">{$item['sort']}</td>
        <td align="center">
         <a href="{url:admin/system/navEdit?id=$item['id']}">编辑</a> |
-        <a href="{url:admin/system/navDel?id=$item['id']}">删除</a>
+        <a ajax_status=-1 ajax_url="{url:admin/system/navDel?id=$item['id']}" href="javascript:void(0)" >删除</a>
        </td>
       </tr>
      {/foreach}

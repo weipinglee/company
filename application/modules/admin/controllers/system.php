@@ -123,6 +123,9 @@ class systemController extends baseController{
 
     }
 
+    /**
+     * 导航编辑
+     */
     public function navEditAction(){
         $guide = new \nainai\guide();
         if(IS_POST){
@@ -156,5 +159,76 @@ class systemController extends baseController{
                 $this->getView()->assign('navText',$navText);
             }
         }
+    }
+
+    /**
+     * 导航删除
+     */
+    public function navDelAction(){
+        if(IS_POST){
+            $id = $this->getRequest()->getParam('id');
+            $id = safe::filter($id,'int',0);
+            if($id>0){
+                $model = new \nainai\guide();
+                $res = $model->delete($id);
+                die(json::encode($res));
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 幻灯列表
+     */
+    public function showListAction(){
+        $this->getView()->assign('cur','show');
+        $this->getView()->assign('here','幻灯列表');
+        $showObj = new \nainai\show();
+        $show = $showObj->showList();
+        $this->getView()->assign('show',$show);
+    }
+
+    /**
+     * 幻灯添加
+     */
+    public function showAddAction(){
+        $this->getView()->assign('cur','show');
+        $this->getView()->assign('here','幻灯编辑');
+        $model = new \nainai\show();
+        if(IS_POST){
+            $data = array(
+                'id'=> safe::filterPost('id','int',0),
+                'show_name'=> safe::filterPost('show_name'),
+                'show_link'=> safe::filterPost('show_link'),
+                'show_img' => safe::filterPost('show_img'),
+                'sort'     => safe::filterPost('sort','int')
+            );
+
+            $res = $model->update($data);
+            die(json::encode($res));
+
+        }
+        else{
+            $id = $this->getRequest()->getParam('id');
+            if(intval($id)>0){
+                $res = $model->get($id);
+                $res['thumb'] = \Library\thumb::get($res['show_img']);
+                $this->getView()->assign('show',$res);
+            }
+
+        }
+    }
+
+    public function showDelAction(){
+        if(IS_POST){
+            $id = $this->getRequest()->getParam('id');
+            $id = safe::filter($id,'int',0);
+            if($id>0){
+                $model = new \nainai\show();
+                $res = $model->delete($id);
+                die(json::encode($res));
+            }
+        }
+        return false;
     }
 }

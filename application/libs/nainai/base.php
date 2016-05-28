@@ -109,7 +109,7 @@ class base{
 				break;
 
 			default:
-				throw new Exception("Unknow Method", 1);exit();
+				throw new \Exception("Unknow Method", 1);exit();
 				break;
 		}
 
