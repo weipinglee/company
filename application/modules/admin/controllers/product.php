@@ -52,16 +52,63 @@ class productController extends baseController{
     }
 
 
-  public function cateDelAction(){
-    if(IS_POST){
-      $id = $this->getRequest()->getParam('id');
-      if(intval($id)>0){
-        $model = new \nainai\proCategory();
-        $res = $model->delete($id);
+    /**
+     * 商品分类删除
+     * @return bool
+     */
+    public function cateDelAction(){
+      if(IS_POST){
+        $id = $this->getRequest()->getParam('id');
+        if(intval($id)>0){
+          $model = new \nainai\proCategory();
+          $res = $model->delete($id);
+          die(json::encode($res));
+
+        }
+      }
+      return false;
+    }
+
+    public function productAddAction(){
+      $this->getView()->assign('cur','productList');
+      $this->getView()->assign('here','商品列表');
+      if(IS_POST){
+        $data = array(
+            'id'  => safe::filterPost('id','int',0),
+            'name'  => safe::filterPost('name'),
+            'price' => safe::filterPost('price'),
+            'unit'  => safe::filterPost('unit'),
+            'cat_id'=> safe::filterPost('cat_id','int'),
+            'description' => safe::filterPost('description'),
+            'content'     => safe::filterPost('content'),
+            'status'      => safe::filterPost('status','int'),
+            'sort'        => safe::filterPost('sort','int'),
+        );
+
+        $obj = new \nainai\product();
+        $res = $obj->update($data);
         die(json::encode($res));
 
       }
+      else{
+
+        $model = new \nainai\proCategory();
+        $cateList = $model->getCateTree(1);
+
+        $id = $this->getRequest()->getParam('id');
+        $id = safe::filter($id,'int',0);
+        if($id>0){
+            $productObj = new \nainai\product();
+            $product = $productObj->get($id);
+            $this->getView()->assign('product',$product);
+        }
+
+
+        $this->getView()->assign('list',$cateList);
+      }
+
     }
-    return false;
-  }
+
+    
+
 }
