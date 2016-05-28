@@ -5,7 +5,7 @@
  * Date: 2016/5/26
  * Time: 21:22
  */
-
+namespace nainai;
 class admin{
 
     //Î¨Ò»×Ö¶Î

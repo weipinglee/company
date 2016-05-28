@@ -150,24 +150,12 @@ class checkRight{
 
 
         }
-        if($obj!==null){
-            if($isLogin == false){//如果未登录或超时，登出操作，跳转到登录页
-                //$this->logOut();
-                $module     = $obj->getRequest()->getModuleName();
-                $controller = $obj->getRequest()->getControllerName();
-                $action     = $obj->getRequest()->getActionName();
-                $callBack = url::createUrl($module.'/'.$controller.'/'.$action);
-                $obj->redirect(url::createUrl($this->loginUrl).'?callback='.$callBack);
-                exit;
-            }
-            else{//已登录则记录user_id
+        if($obj!==null && $isLogin ==true){
                 foreach($sessLogin as $k=>$v){
                     $obj->$k = $v;
                 }
 
-            }
         }
-
         return $isLogin;
     }
 

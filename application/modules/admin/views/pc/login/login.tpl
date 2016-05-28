@@ -30,7 +30,7 @@
     </li>
 
     <li class="sub"><input type="submit" name="submit" class="btn" value="登录"></li>
-    
+
    </ul>
   </form>
 </div>

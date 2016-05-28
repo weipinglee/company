@@ -11,7 +11,7 @@ class initController extends Yaf\Controller_Abstract{
 
     public function init(){
 
-
+echo 'kj';
 
 
 

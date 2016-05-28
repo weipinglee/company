@@ -16,8 +16,16 @@ class Bootstrap extends Yaf\Bootstrap_Abstract {
 	 */
 	function _initConfig(Yaf\Dispatcher $dispatcher) {
 		$this->config = Yaf\Application::app()->getConfig();
-
+		session_start();
 		Yaf\Registry::set("config",  $this->config);
+
+		define('REQUEST_METHOD', strtoupper($dispatcher->getRequest()->getMethod()));
+		define('IS_GET',        REQUEST_METHOD =='GET' ? true : false);
+		define('IS_POST',       REQUEST_METHOD =='POST' ? true : false);
+		define('IS_PUT',        REQUEST_METHOD =='PUT' ? true : false);
+		define('IS_DELETE',     REQUEST_METHOD =='DELETE' ? true : false);
+		define('IS_AJAX',       ((isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')) ? true : false);
+
 	}
 
 	public function _initError(Yaf\Dispatcher $dispatcher) {
