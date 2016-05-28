@@ -21,7 +21,7 @@ function uploadImg(_this,uploadUrl){
 
             },
             success: function (data)  //服务器成功响应处理函数
-            {alert(JSON.stringify(data));
+            {//alert(JSON.stringify(data));
                  if(data.flag==1){
                     $('img[name='+id+']').attr('src',data.thumb);
                     imgInput.val(data.img);

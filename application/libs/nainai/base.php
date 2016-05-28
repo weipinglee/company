@@ -5,10 +5,11 @@
  * 模型基类
  *
  */
+namespace nainai;
 use \Library\M;
 use \Library\Query;
 use \Library\tool;
-class baseModel{
+class base{
 
 	protected $pk  = 'id';
 	protected $table = '';

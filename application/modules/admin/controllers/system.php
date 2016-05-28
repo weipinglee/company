@@ -17,6 +17,8 @@ class systemController extends baseController{
         $M = new configModel();
         $configList = $M->getconfigList();
 
+        $this->getView()->assign('cur','system');
+        $this->getView()->assign('here','系统配置');
         $this->getView()->assign('config',$configList);
 
     }
@@ -37,5 +39,122 @@ class systemController extends baseController{
             die(json::encode($res));
         }
 
+    }
+
+    /**
+     * 导航列表
+     */
+    public function navListAction(){
+        $this->getView()->assign('cur','nav');
+        $this->getView()->assign('here','导航列表');
+
+        $guide = new \nainai\guide();
+        $type = $guide->checkType(safe::filterGet('type'));
+
+        $this->getView()->assign('type',$type);
+        $navList  = $guide->getNavList($type);
+
+        foreach($navList as $k=>$v){
+            if($v['level']!=0){
+                $navList[$k]['nav_name'] = str_repeat('--',$v['level']).$navList[$k]['nav_name'];
+            }
+
+            //获取链接
+            if($v['module']!=''){
+                $navList[$k]['link'] = \Library\url::createUrl($v['module']);
+            }
+            else
+                $navList[$k]['link'] = $navList[$k]['guide'];
+        }
+        $this->getView()->assign('list',$navList);
+
+    }
+
+    /**
+     * 导航添加
+     */
+    public function navAddAction(){
+        $this->getView()->assign('cur','nav');
+        $this->getView()->assign('here','添加导航');
+        $guide = new \nainai\guide();
+        $middle = $guide->getNavList('middle');
+
+        $this->getView()->assign('parent',$middle);
+
+    }
+
+    public function doNavAddAction(){
+        if(IS_POST){
+            $data = array(
+                //'id'    => safe::filterPost('id','int',0),
+                'module'=>safe::filterPost('nav_menu','string',''),
+                'nav_name' => safe::filterPost('nav_name'),
+                'guide' => safe::filterPost('guide'),
+                'type'  => safe::filterPost('type'),
+                'parent_id' => safe::filterPost('parent_id','int',0),
+                'sort'  => safe::filterPost('sort','int')
+
+            );
+
+            $guide = new \nainai\guide();
+            $res = $guide->add($data);
+            die(json::encode($res));
+
+        }
+    }
+
+    /**
+     * ajax获取不同类型的分类
+     * @return bool
+     */
+    public function ajaxGetNavAction(){
+        if(IS_POST){
+            $type = safe::filterPost('type');
+            $guide = new \nainai\guide();
+            $middle = $guide->getNavList($type);
+            foreach($middle as $key=>$val){
+                if($val['level']!=0){
+                    $middle[$key]['nav_name'] = str_repeat('--',$val['level']).$middle[$key]['nav_name'];
+                }
+            }
+            die(json::encode($middle));
+        }
+        return false;
+
+    }
+
+    public function navEditAction(){
+        $guide = new \nainai\guide();
+        if(IS_POST){
+            $data['id'] = safe::filterPost('id','int');
+            $data['module'] = safe::filterPost('nav_menu');
+            $data['nav_name'] = safe::filterPost('nav_name');
+            $data['type'] = safe::filterPost('type');
+            $data['parent_id'] = safe::filterPost('parent_id');
+            $data['sort'] = safe::filterPost('sort');
+            if($data['module']==''){
+                $data['guide'] = safe::filterPost('guide');
+            }
+            $res = $guide->update($data);
+
+            die(json::encode($res));
+
+        }
+        else{
+            $this->getView()->assign('cur','nav');
+            $this->getView()->assign('here','导航编辑');
+            $id = $this->getRequest()->getParam('id');
+            $id = safe::filter($id,'int',0);
+            if($id){
+                $navType = $guide::getType();
+                $navText = $guide::getTypeText();
+
+                $navDetail = $guide->getNavDetail($id);
+
+                $this->getView()->assign('nav_info',$navDetail);
+                $this->getView()->assign('navType',$navType);
+                $this->getView()->assign('navText',$navText);
+            }
+        }
     }
 }

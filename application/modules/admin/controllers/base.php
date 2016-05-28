@@ -11,9 +11,7 @@ use \Library\photoupload;
 class baseController extends Yaf\Controller_Abstract{
 
     public $language = array();
-    public function aAction(){
-        echo 'aaa';
-    }
+
     public function init(){
         $this->getView()->setLayout('layout');
 
@@ -36,7 +34,9 @@ class baseController extends Yaf\Controller_Abstract{
 
         $leftNav = array();
         foreach($nav as $key=>$val){
-            $leftNav[$val['block']][] = $val;
+            if($val['link']!='')
+                $nav[$key]['link'] = url::createUrl($val['link']);
+            $leftNav[$val['block']][] = $nav[$key];
         }
         $this->getView()->assign('nav',$leftNav);
 

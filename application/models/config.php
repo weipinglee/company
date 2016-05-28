@@ -17,18 +17,17 @@ class configModel{
         array('value','/^[\S]{1,255}$/u','配置信息错误',0,'regex')
     );
     public function getconfigList(){
-
         $configObj = new M('config');
-       $config = $configObj->where(array('status'=>1))->select();
+        $config = $configObj->where(array('status'=>1))->select();
         foreach($config as $key=>$val){
             if($val['type']=='file'){
                 $config[$key]['thumb'] = thumb::get($val['value'],180,180);
             }
         }
         $configList = array();
-       foreach($config as $k=>$c){
+        foreach($config as $k=>$c){
             $configList[$c['tab']][] = $c;
-       }
+        }
         return $configList;
     }
 

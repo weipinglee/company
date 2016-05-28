@@ -12,7 +12,7 @@
     <script type="text/javascript" src="{root:admin/views/pc/js/form/formacc.js}"></script>
     <script type="text/javascript" src="{root:admin/views/pc/js/layer/layer.js}"></script>
 
-    <!--ͼƬ�ϴ�js-->
+    <!--图片上传js-->
     <script type="text/javascript" src="{root:admin/views/pc/js/upload/ajaxfileupload.js}"></script>
     <script type="text/javascript" src="{root:admin/views/pc/js/upload/upload.js}"></script>
 
@@ -30,7 +30,7 @@
                 {else:}
                     <ul>
                         {foreach:items=$item key=$k item=$nav}
-                        <li {if:$k=0}class="cur"{/if}><a href="{$nav['link']}"><i class="{$nav['icon']}"></i><em>{$nav['name_zh']}</em></a></li>
+                        <li {if:$cur==$nav['name']}class="cur"{/if}><a href="{$nav['link']}"><i class="{$nav['icon']}"></i><em>{$nav['name_zh']}</em></a></li>
                         {/foreach}
                     </ul>
                 {/if}
@@ -43,14 +43,14 @@
     </div>
     <div id="dcMain">
         <div id="urHere">
-
+            管理中心<b>></b> <strong>{$here}</strong>
         </div>
         <div class="mainBox" style="">
             <input type="hidden" name="uploadUrl"  value="{url:admin/base/upload}" />
             {content}
         </div>
     </div>
-
+    {include:include/footer.tpl}
 </div>
 </body>
 </html>
