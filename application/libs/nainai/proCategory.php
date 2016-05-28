@@ -1,0 +1,73 @@
+<?php
+/**
+ * 商品分类
+ * User: weipinglee
+ * Date: 2016/5/28
+ * Time: 11:23
+ */
+namespace nainai;
+use \Library\M;
+use \Library\tool;
+use \Library\thumb;
+class proCategory extends base{
+
+    protected $table = 'product_category';
+
+    protected $pk = 'cat_id';
+    protected $rules = array(
+        array('cat_id','number','错误',0,'regex'),
+        array('cate_name','s{2,30}','分类名格式错误',0,'regex'),
+        array('description','s{0,255}','描述错误',0,'regex'),
+        array('parent_id','number','错误',0,'regex'),
+        array('status','number','格式错误',0,'regex'),
+        array('sort','number','格式错误',0,'regex'),
+    );
+
+
+    /**
+     * 获取所有分类树
+     * @param int $show 1 缩进，0：不缩进
+     */
+    public function getCateTree($show=0){
+        $m = new M($this->table);
+        $data = $m->order('sort ASC')->select();
+
+        if($data){
+            $data = $this->generateTree($data);
+
+            if($show==1){
+                foreach($data as $k=>$v){
+                    if($v['level']!=0){
+                        $data[$k]['cate_name'] = str_repeat('--',$v['level']).$data[$k]['cate_name'];
+                    }
+                }
+            }
+            return $data;
+        }
+        return array();
+    }
+
+    /**
+     * 获取递归数组
+     * @param array $items
+     * @param int $pid 父类id
+     * @param int $level 分类层级，顶级分类为0
+     * @return array
+     */
+    private  function generateTree(&$items,$pid=0,$level=0){
+        static $tree = array();
+        foreach($items as $key=>$item){
+            if($item['parent_id']==$pid && !isset($items[$key]['del'])){
+                $v = $items[$key];
+                $v['level'] = $level;
+                $tree[] = $v;
+                $items[$key]['del']=1;
+                $this->generateTree($items,$item['cat_id'],$level+1);
+            }
+        }
+        return $tree;
+    }
+
+
+
+}

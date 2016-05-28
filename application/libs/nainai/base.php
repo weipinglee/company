@@ -103,7 +103,7 @@ class base{
 
 			case 'get'://获取一条数据
 				if (intval($args) > 0) {
-					return $model->where($this->pk . '=:id')->bind(array('id'=>$args[0]))->getObj();
+					return $model->where($this->pk . '=:id')->bind(array('id'=>$args))->getObj();
 				}
 				return array();
 				break;
