@@ -53,4 +53,11 @@ class loginController extends Yaf\Controller_Abstract{
         $ca = new \Library\captcha();
         $ca->CreateImage();
     }
+
+    public function logoutAction(){
+        $check = new \Library\checkRight();
+        $check->logOut();
+        $this->redirect(\Library\url::createUrl('admin/login/login'));
+        return false;
+    }
 }

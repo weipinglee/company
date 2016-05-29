@@ -17,8 +17,9 @@ class baseController extends Yaf\Controller_Abstract{
 
         //¼ìÑéÊÇ·ñµÇÂ¼
        $right = new \Library\checkRight();
+
        if(!$right->checkLogin($this)){//Î´µÇÂ¼Ìø×ªµ½µÇÂ½Ò³Ãæ
-          $this->redirect(url::createUrl('admin/login/login'));
+          header('location:'.url::createUrl('admin/login/login'));
        }
 
         $this->getView()->assign('username',$this->admin_name);
