@@ -25,6 +25,8 @@ class Page
 	public $firstpage;//第一页
 	public $lastpage;//最后一页
 	public $pagelength;//要展示的页面数
+
+	private $pageClass = 'pager';
     /**
      * @brief 构造函数
      * @param int $count 数据数量
@@ -170,10 +172,10 @@ class Page
 
         $baseUrl = "{$url}{$index}{$mark}";
         $baseUrl = safe::filter($baseUrl,'text');
-
+		$pageClass = $this->pageClass;
         $attr = str_replace('[page]',1,$attrs);
         $href = $baseUrl.($flag?1:'');
-		$tem="<div class='pages_bar'><a href='{$href}' {$attr}>首页</a>";
+		$tem="<div class='{$pageClass}'><a href='{$href}' {$attr}>首页</a>";
 
         $attr = str_replace('[page]',$this->getIndex()-1,$attrs);
         $href = $baseUrl.($flag?$this->getIndex()-1:'');

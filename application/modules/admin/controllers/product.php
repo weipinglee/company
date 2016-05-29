@@ -138,7 +138,7 @@ class productController extends baseController{
         $this->getView()->assign('search',$search);
         $this->getView()->assign('cateList',$cateList);
         $this->getView()->assign('productList',$product_list['data']);
-        $this->getView()->assign('page',$product_list['bar']);
+        $this->getView()->assign('bar',$product_list['bar']);
     }
 
     public function productDelAction(){
