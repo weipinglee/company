@@ -65,6 +65,24 @@
                             </td>
                         </tr>
                     {/if}
+                    <tr>
+                        <td width="80" height="35" align="right">权限分配</td>
+                        <td>
+                           <span>
+                               {if:isset($manager['super']) && $manager['super']==1}
+                                    所有权限
+                               {else:}
+                                {foreach:items=$access}
+                              <label for="check{$key}" style="padding-right:6px;" >
+                                  <input type="checkbox" id="check{$key}" {if:isset($manager['action_list']) && in_array($key,$manager['action_list'])}checked{/if} value="{$key}" name="access[]"    />{$item}
+                              </label>
+                               {/foreach}
+                               {/if}
+                            </span>
+
+                            <span></span>
+                        </td>
+                    </tr>
 
 
 

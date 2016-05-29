@@ -24,12 +24,15 @@ class managerController extends baseController{
     public function managerAddAction(){
         $this->getView()->assign('cur','adminList');
         $this->getView()->assign('here','管理员添加');
+
         if(IS_POST){
             $data = array(
                 'id'  => safe::filterPost('id','int',0),
                 'user_name'  => safe::filterPost('user_name'),
                 'email'  => safe::filterPost('email'),
+                'action_list' => implode(',',safe::filterPost('access'))
             );
+
             $pass = safe::filterPost('password');
             if($data['id']==0){//新增记录添加时间
                 $data['password']  = $pass;
@@ -49,12 +52,17 @@ class managerController extends baseController{
         else{
             $id = $this->getRequest()->getParam('id');
             $id = safe::filter($id,'int',0);
+            $managerObj = new \nainai\manager();
             if($id>0){
-                $productObj = new \nainai\manager();
-                $product = $productObj->get($id);
+
+                $product = $managerObj->getDetail($id);
 
                 $this->getView()->assign('manager',$product);
             }
+
+            $accessList = $managerObj->getAccessList();
+
+            $this->getView()->assign('access',$accessList);
 
         }
 

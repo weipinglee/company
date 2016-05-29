@@ -23,22 +23,22 @@ class baseController extends Yaf\Controller_Abstract{
        }
 
         $this->getView()->assign('username',$this->admin_name);
+
+        $leftNav = array();
+        //检验是否有相应权限
+        $manager = new \nainai\manager();
+        $access= $manager->checkAccess($this->admin_name,
+            $this->getRequest()->getControllerName(),$leftNav);
+        if(!$access)
+            header('location:'.url::createUrl('admin/index/index'));
+
         //获取语言包
 //        $lang = new \languages\lang();
 //        $controllName = strtolower($this->getRequest()->getControllerName()) ;
 //       $this->language = $lang->getLangData($this->getModuleName(),$controllName);
 //        $this->getView()->assign('lang',$this->language);
 
-        //获取左侧菜单
-        $m = new M('nav_back');
-        $nav = $m->where(array('status'=>1))->select();
 
-        $leftNav = array();
-        foreach($nav as $key=>$val){
-            if($val['link']!='')
-                $nav[$key]['link'] = url::createUrl($val['link']);
-            $leftNav[$val['block']][] = $nav[$key];
-        }
         $this->getView()->assign('nav',$leftNav);
 
 

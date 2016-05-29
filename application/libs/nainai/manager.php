@@ -24,9 +24,26 @@ class manager extends base{
         array('email','email','邮箱错误',0,'regex'),
         array('password','/^[\S]{6,40}$/','密码错误',0,'regex'),
         array('add_time','datetime','时间错误',0,'regex'),
+        array('action_list','/^[a-zA-Z,]{2,}$/'),
         array('last_login','datetime','时间错误',0,'regex'),
         array('last_id','/^[\d]{3}\.[\d]{3}\.[\d]{3}\.[\d]{3}$/','ip错误',0,'regex'),
     );
+
+    /**
+     * 管理员权限列表，控制器名
+     * @var array
+     */
+    public function getAccessList(){
+        return array(
+            'system'  =>'系统管理',
+            'product' => '商品管理',
+            'article' => '文章管理',
+            'manager' => '管理员管理',
+            'member'  => "会员管理"
+        );
+    }
+
+
 
     /**
      * 获取产品列表
@@ -80,6 +97,58 @@ class manager extends base{
         else{
             return$check;
         }
+    }
+
+    /**
+     * 获取管理员详情
+     * @param $id
+     * @return mixed
+     */
+    public function getDetail($id){
+        $data = $this->get($id);
+        $data['super'] = 0;
+        if(!empty($data)){
+            if(strtolower($data['action_list'])=='all'){
+                $data['super'] = 1;
+            }
+            else{
+                $data['action_list'] = explode(',',$data['action_list']);
+            }
+
+        }
+
+        return $data;
+    }
+
+    /**
+     * 检验权限
+     */
+    public function checkAccess($user_name,$controller,&$leftNav){
+        $controller = strtolower($controller);
+        $obj = new M($this->table);
+        $access = $obj->where(array('user_name'=>$user_name))->getField('action_list');
+
+        if($access){
+            $accessList = explode(',',$access);
+
+            //获取左侧菜单,每个菜单关联控制器，不在权限允许的控制器中则不显示
+            $m = new M('nav_back');
+            $nav = $m->where(array('status'=>1))->select();
+            $leftNav = array();
+            foreach($nav as $key=>$val){
+                if(strtolower($access)=='all' || in_array($val['controller'],$accessList)){
+                    if($val['link']!='')
+                        $nav[$key]['link'] = \Library\url::createUrl($val['link']);
+                    $leftNav[$val['block']][] = $nav[$key];
+                }
+
+            }
+
+            if(strtolower($access)=='all' || in_array($controller,$accessList)){
+                return true;
+            }
+        }
+        return false;
     }
 
 
