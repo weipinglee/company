@@ -69,9 +69,12 @@ class productController extends baseController{
       return false;
     }
 
+    /**
+     * 商品添加和显示
+     */
     public function productAddAction(){
       $this->getView()->assign('cur','productList');
-      $this->getView()->assign('here','商品列表');
+      $this->getView()->assign('here','商品添加');
       if(IS_POST){
         $data = array(
             'id'  => safe::filterPost('id','int',0),
@@ -80,7 +83,7 @@ class productController extends baseController{
             'unit'  => safe::filterPost('unit'),
             'cat_id'=> safe::filterPost('cat_id','int'),
             'description' => safe::filterPost('description'),
-            'content'     => safe::filterPost('content'),
+            'content'     => safe::filterPost('content','text'),
             'status'      => safe::filterPost('status','int'),
             'sort'        => safe::filterPost('sort','int'),
         );
@@ -100,6 +103,7 @@ class productController extends baseController{
         if($id>0){
             $productObj = new \nainai\product();
             $product = $productObj->get($id);
+            $product['content'] = safe::stripSlash($product['content']);
             $this->getView()->assign('product',$product);
         }
 
@@ -109,6 +113,45 @@ class productController extends baseController{
 
     }
 
-    
+    public function productListAction(){
+        $this->getView()->assign('cur','productList');
+        $this->getView()->assign('here','商品列表');
+        //获取分类
+        $model = new \nainai\proCategory();
+        $cateList = $model->getCateTree(1);
+
+
+        $search = array('cat_id'=>0,'keyword'=>'');
+        if(IS_POST){
+            $search = array(
+                'cat_id'=> safe::filterPost('cat_id','int',0),
+                'keyword'=> safe::filterPost('keyword')
+            );
+        }
+        else{
+            $page = safe::filterGet('page','int',1);
+        }
+
+        $proModel = new \nainai\product();
+        $product_list = $proModel->getList($page,$search);
+
+        $this->getView()->assign('search',$search);
+        $this->getView()->assign('cateList',$cateList);
+        $this->getView()->assign('productList',$product_list['data']);
+        $this->getView()->assign('page',$product_list['bar']);
+    }
+
+    public function productDelAction(){
+        if(IS_POST){
+            $id = $this->getRequest()->getParam('id');
+            if(intval($id)>0){
+                $m = new \nainai\product();
+                die(json::encode($m->delete($id)));
+            }
+        }
+
+    }
+
+
 
 }

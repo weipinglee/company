@@ -1,6 +1,13 @@
-<script type="text/javascript" src="{root:admin/views/pc/js/kindeditor/kindeditor.js}"></script>
-<script  type="text/javascript" src="{root:admin/views/pc/js/lang/zh_CN.js}"></script>
-
+<!-- 配置文件 -->
+<script type="text/javascript" src="{root:admin/views/pc/js/ueditor/ueditor.config.js}"></script>
+<!-- 编辑器源码文件 -->
+<script type="text/javascript" src="{root:admin/views/pc/js/ueditor/ueditor.all.js}"></script>
+<!-- 实例化编辑器 -->
+<script type="text/javascript">
+    var ue = UE.getEditor('container',{
+        autowidth : false
+    });
+</script>
 <h3><a href="{url:admin/product/productList}" class="actionBtn">返回列表</a>编辑商品</h3>
 
 <div class="idTabs">
@@ -58,17 +65,15 @@
                         </td>
                     </tr>
                     <tr>
-                        <td width="80" height="35" align="right">详细描述</td>
+                        <td width="200" height="35" align="right">详细描述</td>
                         <td>
-                            <!-- KindEditor -->
-                             <script type="text/javascript">
-                                var editor;
-                                KindEditor.ready(function(K) {
-                                    editor = K.create('#content');
-                                });
-                            </script>
-                            <!-- /KindEditor -->
-                            <textarea id="content" name="content" style="width:780px;height:400px;" class="textArea">{$product['content']}</textarea>
+                            <div style="width:1000px;">
+                                <script id="container" name="content" type="text/plain">
+                                    {$product['content']}
+                                </script>
+                            </div>
+                            <!-- 加载编辑器的容器 -->
+
 
                         </td>
                     </tr>

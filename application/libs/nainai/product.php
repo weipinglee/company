@@ -9,6 +9,7 @@ namespace nainai;
 use \Library\M;
 use \Library\tool;
 use \Library\thumb;
+use \Library\Query;
 class product extends base{
 
     protected $table = 'product';
@@ -24,6 +25,46 @@ class product extends base{
         array('status','number','格式错误',0,'regex'),
         array('sort','number','格式错误',0,'regex'),
     );
+
+    /**
+     * 获取产品列表
+     * @param int $page 页码
+     * @param array $search 搜索条件
+     * @return array
+     */
+    public function getList($page,$search=array()){
+        $Q = new Query('product');
+        $Q->page = $page;
+        $Q->pagesize = 20;
+        $where = '';
+        if(isset($search['cat_id']) && $search['cat_id']>0){
+            $cateObj = new proCategory();
+            $cateIds = $cateObj->getChildCate($search['cat_id']);//获取所有子分类的id
+            $cateIds[] = $search['cat_id'];
+            $cateIds = implode(',',$cateIds);
+            $where = 'cat_id in ('.$cateIds.')';
+        }
+        if(isset($search['keyword']) && $search['keyword']!=''){
+            $where1 =  'name like "%'.$search['keyword'].'%"';
+            $where .= $where =='' ? $where1 : ' AND '.$where1;
+        }
+
+        if($where!=''){
+            $Q->where = $where;
+        }
+
+        $data = $Q->find();
+        $pageBar =  $Q->getPageBar();
+        $cateObj = new \nainai\proCategory();
+        if(!empty($data)){
+            foreach($data as $k=>$v){
+                $data[$k]['cat_text'] = $cateObj->getCateText($v['cat_id']);
+                $data[$k]['add_time'] = \Library\Time::getDateTime('Y-m-d',$data[$k]['add_time']);
+            }
+        }
+
+        return array('data'=>$data,'bar'=>$pageBar);
+    }
 
 
 

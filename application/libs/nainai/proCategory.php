@@ -68,6 +68,37 @@ class proCategory extends base{
         return $tree;
     }
 
+    /**
+     * 获取分类名
+     */
+    public function getCateText($cat_id){
+        $m = new M($this->table);
+        $res = $m->where(array('cat_id'=>$cat_id))->getObj();
+        return $res['cate_name'];
+    }
+
+    /**
+     * 获取下级所有分类，以及下级所有第一个分类id,以逗号相隔
+     * @param array
+     */
+    public function getChildCate($id){
+         $m = new M($this->table);
+        static $ids = array();
+        $cateIds = $m->where(array('parent_id'=>$id))->getFields('cat_id');
+
+        if(!empty($cateIds)){
+            foreach($cateIds as $k=>$v){
+                $ids[] = $v;
+                $this->getChildCate($v);
+            }
+        }
+
+        return $ids;
+
+    }
+
+
+
 
 
 }
