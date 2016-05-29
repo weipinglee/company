@@ -23,8 +23,7 @@ class UserPlugin extends Yaf\Plugin_Abstract{
 	}
 
 	public function postDispatch(Yaf\Request_Abstract $request, Yaf\Response_Abstract $response) {
-		$controllerName = $request->getControllerName();
-		echo $controllerName;
+
 	}
 
 	public function dispatchLoopShutdown(Yaf\Request_Abstract $request, Yaf\Response_Abstract $response) {

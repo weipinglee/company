@@ -66,11 +66,11 @@
                         <td width="80" height="35" align="right">图片预览：</td>
                         <td colspan="2">
                             <span class="zhs_img" id='imgContainer'>
-                                {if:!empty($article['images'])}
+                                {if:isset($article['images']) &&!empty($article['images'])}
                                     {foreach:items=$article['images'] }
                                     <img src="{$item['thumb']}" />
                                     <input type="hidden" name="imgData[]" value="{$item['file']}" />
-                                    {/if}
+                                    {/foreach}
                                 {/if}
                             </span>
                         </td>

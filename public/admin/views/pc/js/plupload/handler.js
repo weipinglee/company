@@ -16,7 +16,7 @@
 	document.getElementById(file.id).getElementsByTagName('b')[0].innerHTML = '<span>' + file.percent + "%</span>";
 	}
 
-	function uploadSuccess(up, file, serverData) {alert(serverData.response);
+	function uploadSuccess(up, file, serverData) {//alert(serverData.response);
 		var imgObj = $.parseJSON(serverData.response);
 
 		if (imgObj.flag == 1)

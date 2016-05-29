@@ -72,14 +72,6 @@ class articleController extends baseController{
      * 商品添加和显示
      */
     public function articleAddAction(){
-
-        //上传图片插件
-        $plupload = new \Library\plupload(\Library\url::createUrl('admin/article/upload'));
-
-        //注意，js要放到html的最后面，否则会无效
-        $this->getView()->assign('plupload',$plupload->show());
-
-
       $this->getView()->assign('cur','articleList');
       $this->getView()->assign('here','文章编辑');
       if(IS_POST){
@@ -94,7 +86,6 @@ class articleController extends baseController{
         );
         $imgData = safe::filterPost('imgData');
 
-
         $obj = new \nainai\article();
         $res = $obj->updateArticle($data,$imgData);
         die(json::encode($res));
@@ -102,6 +93,11 @@ class articleController extends baseController{
       }
       else{
 
+          //上传图片插件
+          $plupload = new \Library\plupload(\Library\url::createUrl('admin/article/upload'));
+
+          //注意，js要放到html的最后面，否则会无效
+          $this->getView()->assign('plupload',$plupload->show());
         $model = new \nainai\artCategory();
         $cateList = $model->getCateTree(1);
 
