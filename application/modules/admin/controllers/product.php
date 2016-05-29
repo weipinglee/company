@@ -73,6 +73,12 @@ class productController extends baseController{
      * 商品添加和显示
      */
     public function productAddAction(){
+
+        //上传图片插件
+        $plupload = new \Library\plupload(\Library\url::createUrl('admin/article/upload'));
+
+        //注意，js要放到html的最后面，否则会无效
+        $this->getView()->assign('plupload',$plupload->show());
       $this->getView()->assign('cur','productList');
       $this->getView()->assign('here','商品添加');
       if(IS_POST){
@@ -88,8 +94,9 @@ class productController extends baseController{
             'sort'        => safe::filterPost('sort','int'),
         );
 
-        $obj = new \nainai\product();
-        $res = $obj->update($data);
+          $imgData = safe::filterPost('imgData');
+          $obj = new \nainai\product();
+          $res = $obj->updateProduct($data,$imgData);
         die(json::encode($res));
 
       }
@@ -104,6 +111,9 @@ class productController extends baseController{
             $productObj = new \nainai\product();
             $product = $productObj->get($id);
             $product['content'] = safe::stripSlash($product['content']);
+
+            //获取图片数据
+            $product['images'] = $productObj->getProductImages($id);
             $this->getView()->assign('product',$product);
         }
 

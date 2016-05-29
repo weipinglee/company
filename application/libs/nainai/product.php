@@ -13,7 +13,7 @@ use \Library\Query;
 class product extends base{
 
     protected $table = 'product';
-
+    protected $imgTable = 'images';
     protected $pk = 'id';
     protected $rules = array(
         array('id','number','错误',0,'regex'),
@@ -64,6 +64,56 @@ class product extends base{
         }
 
         return array('data'=>$data,'bar'=>$pageBar);
+    }
+
+    public function updateProduct($product,$imgData){
+        $obj = new M($this->table);
+        $obj->beginTrans();
+
+        if($obj->validate($this->rules,$product)){
+            if(isset($product[$this->pk]) && $product[$this->pk]>0){
+                $id = $product[$this->pk];
+                unset($product[$this->pk]);
+
+                $obj->where(array($this->pk=>$id))->data($product)->update();
+            }
+            else{
+                $id = $obj->data($product)->add();
+            }
+            $obj->table($this->imgTable);
+            $imgArr = array();
+            $obj->where(array('product_id'=>$id,'type'=>'product'))->delete();
+            if(!empty($imgData)){
+                foreach($imgData as $k=>$v){
+                    $imgArr[$k]['file'] = $v;
+                    $imgArr[$k]['type'] = 'product';
+                    $imgArr[$k]['product_id'] = $id;
+                }
+
+                $obj->data($imgArr)->adds();
+            }
+            $res = $obj->commit();
+            if($res===true){
+                return tool::getSuccInfo();
+            }
+            else{
+                return tool::getSuccInfo(0,'操作失败');
+            }
+
+
+        }
+        else{
+            return tool::getSuccInfo(0,$obj->getError());
+        }
+    }
+
+    public function  getProductImages($id){
+        $obj = new M($this->imgTable);
+        $data = $obj->where(array('product_id'=>$id,'type'=>'product'))->select();
+        foreach($data as $k=>$v){
+            $data[$k]['thumb'] = thumb::get($v['file'],100,100);
+        }
+        return $data;
     }
 
 

@@ -1,3 +1,4 @@
+
 <!-- 配置文件 -->
 <script type="text/javascript" src="{root:admin/views/pc/js/ueditor/ueditor.config.js}"></script>
 <!-- 编辑器源码文件 -->
@@ -77,7 +78,35 @@
 
                         </td>
                     </tr>
+                    <tr>
+                        <td width="80" height="35" align="right">图片预览：</td>
+                        <td colspan="2">
+                            <span class="zhs_img" id='imgContainer'>
+                                {if:!empty($product['images'])}
+                                    {foreach:items=$product['images'] }
+                                    <img src="{$item['thumb']}" />
+                                    <input type="hidden" name="imgData[]" value="{$item['file']}" />
+                                    {/foreach}
+                                {/if}
 
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="80" height="35" align="right">上传图片：</td>
+                        <td>
+                            <span>
+                                <div>
+
+                                    <input id="pickfiles"  type="button" value="选择文件">
+                                    <input type="button"  id='uploadfiles' class="tj" value="上传">
+                                    <span>双击图片删除</span>
+                                </div>
+                                <div id="filelist"></div>
+                                <pre id="console"></pre>
+                            </span>
+                        </td>
+                    </tr>
 
                     <tr>
                         <td height="35" align="right">是否开启</td>
@@ -114,3 +143,4 @@
 
     </div>
 </div>
+{$plupload}

@@ -92,8 +92,7 @@ class articleController extends baseController{
             'status'      => safe::filterPost('status','int'),
             'sort'        => safe::filterPost('sort','int'),
         );
-
-          $imgData = safe::filterPost('imgData');
+        $imgData = safe::filterPost('imgData');
 
 
         $obj = new \nainai\article();
