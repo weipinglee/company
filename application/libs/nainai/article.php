@@ -14,6 +14,8 @@ class article extends base{
 
     protected $table = 'article';
 
+    protected $imgTable = 'images';
+
     protected $pk = 'id';
     protected $rules = array(
         array('id','number','错误',0,'regex'),
@@ -64,6 +66,61 @@ class article extends base{
         }
 
         return array('data'=>$data,'bar'=>$pageBar);
+    }
+
+    /**
+     * 更新或插入文章
+     * @param array $article 文章数据
+     * @param array $imgData 图片数据
+     */
+    public function updateArticle($article,$imgData){
+        $obj = new M($this->table);
+        $obj->beginTrans();
+
+        if($obj->validate($this->rules,$article)){
+            if(isset($article[$this->pk]) && $article[$this->pk]>0){
+                $id = $article[$this->pk];
+                unset($article[$this->pk]);
+
+                $obj->where(array($this->pk=>$id))->data($article)->update();
+            }
+            else{
+                $id = $obj->data($article)->add();
+            }
+            $obj->table($this->imgTable);
+            $imgArr = array();
+            $obj->where(array('product_id'=>$id,'type'=>'article'))->delete();
+            if(!empty($imgData)){
+                foreach($imgData as $k=>$v){
+                    $imgArr[$k]['file'] = $v;
+                    $imgArr[$k]['type'] = 'article';
+                    $imgArr[$k]['product_id'] = $id;
+                }
+
+                $obj->data($imgArr)->adds();
+            }
+            $res = $obj->commit();
+            if($res===true){
+                return tool::getSuccInfo();
+            }
+            else{
+                return tool::getSuccInfo(0,'操作失败');
+            }
+
+
+        }
+        else{
+            return tool::getSuccInfo(0,$obj->getError());
+        }
+    }
+
+    public function  getArticleImages($id){
+        $obj = new M($this->imgTable);
+        $data = $obj->where(array('product_id'=>$id,'type'=>'article'))->select();
+        foreach($data as $k=>$v){
+            $data[$k]['thumb'] = thumb::get($v['file'],100,100);
+        }
+        return $data;
     }
 
 

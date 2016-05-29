@@ -3,7 +3,7 @@
 namespace Library;
 use \Library\url;
 
-class PlUpload{
+class plupload{
 
 	private $_uploadJsPaht;
 
@@ -31,7 +31,7 @@ class PlUpload{
 	private $_nowUploadType = '';
 
 	public function __construct($uploadUrl, $size = '2mb', $types = array('img')){
-		$this->_uploadJsPaht = url::getBaseUrl() . '/js/plupload/';
+		$this->_uploadJsPaht = url::getBaseUrl() . '/admin/views/pc/js/plupload/';
 		$this->_uploadUrl = $uploadUrl;
 		// 设置文件大小
 		$this->_fileSize = $size;
