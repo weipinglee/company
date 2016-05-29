@@ -73,12 +73,13 @@ class product extends base{
         if($obj->validate($this->rules,$product)){
             if(isset($product[$this->pk]) && $product[$this->pk]>0){
                 $id = $product[$this->pk];
-                unset($product[$this->pk]);
+               // unset($product[$this->pk]);
 
-                $obj->where(array($this->pk=>$id))->data($product)->update();
+                $this->update($product);
             }
             else{
-                $id = $obj->data($product)->add();
+                $res = $this->add($product);
+                $id = $res['info'];
             }
             $obj->table($this->imgTable);
             $imgArr = array();

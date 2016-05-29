@@ -50,6 +50,7 @@ class base{
 	 * @return [mixed]         [根据对应操作返回对应数据]
 	 */
 	public function __call($method, $args){
+		$log = array('table'=>$this->getTable());
 		$methodArr = preg_split("/(?=[A-Z])/", $method);
 		if(!isset($methodArr[1])){
 			$methodArr[1] = '';
@@ -64,11 +65,14 @@ class base{
 
 		$rules = $this->getRules(strtolower($methodArr[1]));
 		$args = $args[0];
+		$id = 0;
 		switch ($methodArr[0]) {
 			case 'add':
 				$res = null;
 				if ($model->validate($rules, $args)) {
-					$res = $model->data($args)->add() ? 1 : 0;
+					$id = $model->data($args)->add();
+					$log = array_merge($log,array('type'=>'add','id'=>$id));
+					$res = $id ? 1 : 0;
 				}else{
 					$res = $model->getError();
 				}
@@ -82,10 +86,12 @@ class base{
 						$id = $args[$this->pk];
 						unset($args[$this->pk]);
 						$res = $model->data($args)->where($this->pk . '=:id')->bind(array('id'=>$id))->update() ;
-
+						$log =  array_merge($log,array('type'=>'update','id'=>$id));
 					}
 					else{
-						$res = $model->data($args)->add() ? 1:0;
+						$newId = $model->data($args)->add() ;
+						$res = $newId ? 1 : 0;
+						$log = array_merge($log,array('type'=>'add','id'=>$newId));
 					}
 				}else{
 					$res = $model->getError();
@@ -94,11 +100,13 @@ class base{
 
 			case 'delete'://删除数据
 				if(!is_array($args)){
-					$res =  $model->where($this->pk . '=:id')->bind(array('id'=>$args))->delete();
+					$id = $args;
+					$res =  $model->where($this->pk . '=:id')->bind(array('id'=>$id))->delete();
 				}
 				else{
 					$res =  $model->where($args)->bind(array('id'=>$args))->delete();
 				}
+				$log = array_merge($log, array('type'=>'delete','id'=>$args));
 			break;
 
 			case 'get'://获取一条数据
@@ -115,7 +123,9 @@ class base{
 
 		//插入更新删除返回提示
 		if(is_int($res)){
-				return tool::getSuccInfo();
+				$logObj = new \nainai\log();
+				$logObj->addLogs($log);
+				return tool::getSuccInfo(1,$id);
 		}
 		else{
 			return tool::getSuccInfo(0,is_string($res) ? $res : '系统繁忙，请稍后再试');

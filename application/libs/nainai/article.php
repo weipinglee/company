@@ -78,15 +78,8 @@ class article extends base{
         $obj->beginTrans();
 
         if($obj->validate($this->rules,$article)){
-            if(isset($article[$this->pk]) && $article[$this->pk]>0){
-                $id = $article[$this->pk];
-                unset($article[$this->pk]);
-
-                $obj->where(array($this->pk=>$id))->data($article)->update();
-            }
-            else{
-                $id = $obj->data($article)->add();
-            }
+            $res = $this->update($article);
+            $id = $res['info'];
             $obj->table($this->imgTable);
             $imgArr = array();
             $obj->where(array('product_id'=>$id,'type'=>'article'))->delete();

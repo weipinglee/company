@@ -34,6 +34,12 @@ class checkRight{
         'admin_email'=>'email'
     );
 
+    public function getLoginAdminID(){
+        $sessData =  session::get($this->loginSessName);
+        return $sessData['admin_id'];
+
+    }
+
     //登录用到的字段
     protected $loginTableFields = array(
         'userinfo'=> array('user_name'),//可以用户登录的字段
