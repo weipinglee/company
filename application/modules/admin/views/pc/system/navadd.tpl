@@ -13,7 +13,7 @@
      <input type="hidden" name="ajaxUrl" value="{url:admin/system/ajaxGetNav}" />
       <div class="items">
         <div id="nav_add">
-         <form action="{url:admin/system/doNavAdd}" method="post">
+         <form action="{url:admin/system/doNavAdd}" method="post" auto_submit redirect_url="{url:admin/system/navlist}">
           <table width="100%" border="0" cellpadding="5" cellspacing="1" class="tableBasic">
            <tr>
             <td width="80" height="35" align="right">系统内容</td>

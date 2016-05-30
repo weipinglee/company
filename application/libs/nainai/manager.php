@@ -14,6 +14,8 @@ class manager extends base{
 
     protected $table = 'admin';
 
+    protected $logTable = 'admin_log';
+
     protected $uniqueFields = array('user_name');
     protected $uniqueFieldsText = array('user_name'=>'管理员用户名');
 
@@ -149,6 +151,23 @@ class manager extends base{
             }
         }
         return false;
+    }
+
+    /**
+     * 获取操作日志列表
+     */
+    public function managerLogList($page=1){
+        $Q = new Query($this->logTable.' as log');
+        $Q->join = 'left join '.$this->table.' as m on log.user_id = m.id';
+        $Q->fields = 'log.*,m.user_name';
+        $Q->order = 'log.id DESC';
+        $Q->page = $page;
+        $Q->pagesize = 10;
+        $data = $Q->find();
+        $pageBar =  $Q->getPageBar();
+
+
+        return array('data'=>$data,'bar'=>$pageBar);
     }
 
 

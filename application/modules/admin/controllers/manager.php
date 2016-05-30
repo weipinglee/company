@@ -68,6 +68,9 @@ class managerController extends baseController{
 
     }
 
+    /**
+     * 管理员删除
+     */
     public function managerDelAction(){
         if(IS_POST){
             $id = $this->getRequest()->getParam('id');
@@ -77,6 +80,14 @@ class managerController extends baseController{
             }
         }
 
+    }
+
+    public function managerLogAction(){
+        $page = safe::filterGet('page','int',1);
+        $obj = new \nainai\manager();
+        $list =$obj->managerLogList($page);
+        $this->getView()->assign('log',$list['data']);
+        $this->getView()->assign('bar',$list['bar']);
     }
 
 
