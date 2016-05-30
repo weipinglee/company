@@ -53,6 +53,31 @@ class member extends base{
     }
 
 
+    public function excelAdd(){
+        $fields = array('no','name','identify_no','create_time','create_person');
+        $phpExcel = new \Library\excel();
+        $data = $phpExcel->getExcelData();
+
+        if(isset($data[1]))
+            unset($data[1]);//把第一行去掉
+        $insertData = array();
+        if(!empty($data)){
+            foreach($data as $k=>$v){
+                $i = 0;
+                foreach($data[$k] as $v){
+                    $insertData[$k][$fields[$i]]=$v;
+                    $i = $i + 1;
+                }
+            }
+        }
+        if(!empty($insertData)){
+            return $res = $this->adds($insertData);
+        }
+        return tool::getSuccInfo(0,'上传数据为空');
+
+    }
+
+
 
 
 

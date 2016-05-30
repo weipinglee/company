@@ -63,6 +63,24 @@ class memberController extends baseController{
 
     }
 
+    /**
+     * 导入会员
+     */
+    public function memberExcelAction(){
+        if(IS_POST){
+            $member = new \nainai\member();
+            $res = $member->excelAdd();
+
+            $this->redirect(\Library\url::createUrl('admin/system/message?success='.$res['success'].'&info='.$res['info']));
+
+            return false;
+        }
+
+
+
+
+    }
+
 
 
 

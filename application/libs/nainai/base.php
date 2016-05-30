@@ -115,6 +115,15 @@ class base{
 				}
 				return array();
 				break;
+			case 'adds' : {
+				$res = null;
+				$count = count($args);
+				$id = $model->data($args)->adds();
+				$log = array_merge($log,array('type'=>'adds','id'=>$id,'count'=>$count));
+				$res = $id ? 1 : 0;
+
+			}
+			break;
 
 			default:
 				throw new \Exception("Unknow Method", 1);exit();

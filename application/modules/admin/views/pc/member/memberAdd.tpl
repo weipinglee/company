@@ -6,7 +6,7 @@
 
     <div class="items">
         <div id="nav_add">
-            <form action="{url:admin/member/memberAdd}" method="post"  redirect_url="{url:admin/member/memberList}">
+            <form action="{url:admin/member/memberAdd}" method="post" auto_submit redirect_url="{url:admin/member/memberList}">
                 <input type="hidden" name="id" value="{$member['id']}" />
                 <table width="100%" border="0" cellpadding="5" cellspacing="1" class="tableBasic">
                     <tr>

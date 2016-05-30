@@ -231,4 +231,11 @@ class systemController extends baseController{
         }
         return false;
     }
+
+    public function messageAction(){
+        $success = $this->getRequest()->getParam('success','int');
+        $info = $this->getRequest()->getParam('info');
+        $this->getView()->assign('success',$success);
+        $this->getView()->assign('info',$info);
+    }
 }

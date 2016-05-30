@@ -83,6 +83,8 @@ class managerController extends baseController{
     }
 
     public function managerLogAction(){
+        $this->getView()->assign('cur','managerLog');
+        $this->getView()->assign('here','管理员日志');
         $page = safe::filterGet('page','int',1);
         $obj = new \nainai\manager();
         $list =$obj->managerLogList($page);

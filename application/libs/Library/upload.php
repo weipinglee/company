@@ -12,10 +12,10 @@
  * @brief 文件上传类
  */
 namespace Library;
-class Upload
+class upload
 {
 	//允许上传附件类型
-	private $allowType = array('jpg','gif','png','zip','rar','docx','doc');
+	private $allowType = array('jpg','gif','png','zip','rar','docx','doc','xlsx','xls');
 
 	//需要检测木马的文件类型
 	private $checkType = array('jpg','gif','png');
