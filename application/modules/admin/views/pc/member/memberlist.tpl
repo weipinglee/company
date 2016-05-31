@@ -1,5 +1,10 @@
 
-<h3><a href="{url:admin/member/memberAdd}" class="actionBtn" >添加会员</a>会员列表</h3>
+<h3>
+   <div><a href="{url:admin/member/memberAdd}" class="actionBtn" style="margin-left:5px;" >添加会员</a></div>
+    <div><a href="{url:admin/member/memberExcel}" class="actionBtn" >Excel导入</a></div>
+    会员列表
+</h3>
+
 
 <div class="navList">
 

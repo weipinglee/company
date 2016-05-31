@@ -16,7 +16,7 @@
             <!-- <td align="center"><input type="checkbox" name="checkbox[]" value="{$item['id']}" /></td>
             --> <td align="center">{$item['id']}</td>
             <td>{$item['create_time']}</td>
-            <td align="center">{$item['admin']}</td>
+            <td align="center">{$item['user_name']}</td>
             <td align="center">{$item['action']}</td>
             <td align="center">{$item['ip']}</td>
         </tr>

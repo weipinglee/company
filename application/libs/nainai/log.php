@@ -30,11 +30,19 @@ class log extends base{
         'show'    => '首页幻灯'
     );
 
+    /**
+     * 添加管理员日志
+     * @param array $log array('table'=>,'type'=>,'id'=>,'count'=>)
+     */
     public function addLogs($log){
         $logTableRev = array_flip($this->logTables);
-        if(in_array($log['table'],$logTableRev)){
+        if($log['type']=='login' || in_array($log['table'],$logTableRev)){
             $log_text = '';
             switch($log['type']){
+                case 'login': {
+                    $log_text = '登录成功';
+                }
+                break;
                 case 'add' : {
                     $log_text = '添加了'.$this->logTables[$log['table']].',id为'.$log['id'];
                 }
@@ -47,6 +55,10 @@ class log extends base{
                 case 'delete' : {
                     $log_text = '删除了id为'.$log['id'].'的'.$this->logTables[$log['table']];
 
+                }
+                break;
+                case 'adds' : {
+                    $log_text = '新增了'.$log['count'].'条'.$this->logTables[$log['table']].'数据';
                 }
                 break;
             }

@@ -82,12 +82,16 @@ class managerController extends baseController{
 
     }
 
+    /**
+     * 管理员日志列表
+     */
     public function managerLogAction(){
         $this->getView()->assign('cur','managerLog');
         $this->getView()->assign('here','管理员日志');
         $page = safe::filterGet('page','int',1);
         $obj = new \nainai\manager();
         $list =$obj->managerLogList($page);
+
         $this->getView()->assign('log',$list['data']);
         $this->getView()->assign('bar',$list['bar']);
     }

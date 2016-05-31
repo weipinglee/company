@@ -37,7 +37,8 @@ class loginController extends Yaf\Controller_Abstract{
             $check = new \Library\checkRight();
             $res = $check->checkUserRight($userData);
             if($res==true){//登录成功
-
+                $log = new \nainai\log();
+                $log->addLogs(array('type'=>'login'));
                 die(json::encode(tool::getSuccInfo()));
             }
             else{
