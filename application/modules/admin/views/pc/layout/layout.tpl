@@ -12,10 +12,6 @@
     <script type="text/javascript" src="{root:admin/views/pc/js/form/formacc.js}"></script>
     <script type="text/javascript" src="{root:admin/views/pc/js/layer/layer.js}"></script>
 
-    <!--图片上传js-->
-    <script type="text/javascript" src="{root:admin/views/pc/js/upload/ajaxfileupload.js}"></script>
-    <script type="text/javascript" src="{root:admin/views/pc/js/upload/upload.js}"></script>
-
 </head>
 <body>
 <div id="dcWrap">

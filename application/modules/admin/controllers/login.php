@@ -37,6 +37,7 @@ class loginController extends Yaf\Controller_Abstract{
             $check = new \Library\checkRight();
             $res = $check->checkUserRight($userData);
             if($res==true){//登录成功
+
                 die(json::encode(tool::getSuccInfo()));
             }
             else{
