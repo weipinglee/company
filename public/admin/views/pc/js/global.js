@@ -151,3 +151,4 @@ function douRemove(target) {
 function change(id, choose) {
     document.getElementById(id).value = choose.options[choose.selectedIndex].title;
 }
+

@@ -30,62 +30,62 @@ nn_panduo.formacc.prototype = {
 	 * 自动绑定select选中项
 	 */
 	bind_select:function(){
-        $(this.form).find("select").each(function(){
-        	var value = $(this).attr('value');
-        	if(value != null && value != ''){
-        		var option = $(this).find("option[value='"+value+"']");
-	        	var txt = $(option).text();
-	        	$(option).attr("selected",'selected');
-	        	$(this).siblings("span").text(txt);
-        	}
-        });
-        // $("select[name='type']").find("option[value='{$info['type']}']").attr("selected",'selected');
+		$(this.form).find("select").each(function(){
+			var value = $(this).attr('value');
+			if(value != null && value != ''){
+				var option = $(this).find("option[value='"+value+"']");
+				var txt = $(option).text();
+				$(option).attr("selected",'selected');
+				$(this).siblings("span").text(txt);
+			}
+		});
+		// $("select[name='type']").find("option[value='{$info['type']}']").attr("selected",'selected');
 	},
 	/**
 	 * 表单提交
 	 * @type {Object}
 	 */
 	validform:function(){
-        var _this = this;
-        if(this.form){
+		var _this = this;
+		if(this.form){
 			this.validObj = $(this.form).Validform({
-		      tiptype : 2,
-		      ajaxPost:false,
-		      showAllError:false,
-		      postonce:true,
-			  datatype : {
-				  'float' : /^\d+\.?\d*$/i,
-				  "zh" : /^[\u4E00-\u9FA5\uf900-\ufa2d]$/,
-				  "zh2-5" : /^[\u4E00-\u9FFF\uf900-\ufa2d]{2,5}$/,
-				  'qq' : /^[1-9][0-9]{4,16}$/i,
-				  'zip' : /^\d{6}$/i,
-				  'mobile':/^1[2|3|4|5|6|7|8|9][0-9]\d{8}$/,
-				  'date':  /^(?:(?!0000)[0-9]{4}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-02-29)$/i,
-			      'datetime':  /^(?:(?!0000)[0-9]{4}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-02-29) (?:(?:[0-1][0-9])|(?:2[0-3])):(?:[0-5][0-9]):(?:[0-5][0-9])$/i,
-				  'identify' : /^\d{14,17}(\d|x)$/i,//身份证号
+				tiptype : 2,
+				ajaxPost:false,
+				showAllError:false,
+				postonce:true,
+				datatype : {
+					'float' : /^\d+\.?\d*$/i,
+					"zh" : /^[\u4E00-\u9FA5\uf900-\ufa2d]$/,
+					"zh2-5" : /^[\u4E00-\u9FFF\uf900-\ufa2d]{2,5}$/,
+					'qq' : /^[1-9][0-9]{4,16}$/i,
+					'zip' : /^\d{6}$/i,
+					'mobile':/^1[2|3|4|5|6|7|8|9][0-9]\d{8}$/,
+					'date':  /^(?:(?!0000)[0-9]{4}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-02-29)$/i,
+					'datetime':  /^(?:(?!0000)[0-9]{4}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-02-29) (?:(?:[0-1][0-9])|(?:2[0-3])):(?:[0-5][0-9]):(?:[0-5][0-9])$/i,
+					'identify' : /^\d{14,17}(\d|x)$/i
 
-		},
-		      beforeSubmit:function(curform){
-		        var url = $(curform).attr('action');
-		        var data = $(curform).serialize();
-		        _this.ajax_post(url,data,function(){
-		          if(!_this.no_redirect){
-		          	  layer.msg("操作成功!稍后自动跳转");
-		              setTimeout(function(){
-		              	if(_this.redirect_url){
-			                window.location.href=_this.redirect_url;
-			            }else{
-			            	window.location.reload();
-			            }
-		              },1000);
-		          }else{
-		          	layer.msg('操作成功！');
-		          }
-		        });
-		        return false;
-		      }
-	      });
-	    }
+				},
+				beforeSubmit:function(curform){
+					var url = $(curform).attr('action');
+					var data = $(curform).serialize();
+					_this.ajax_post(url,data,function(){
+						if(!_this.no_redirect){
+							layer.msg("操作成功!稍后自动跳转");
+							setTimeout(function(){
+								if(_this.redirect_url){
+									window.location.href=_this.redirect_url;
+								}else{
+									window.location.reload();
+								}
+							},1000);
+						}else{
+							layer.msg('操作成功！');
+						}
+					});
+					return false;
+				}
+			});
+		}
 	},
 
 	check:function(bool){
@@ -139,9 +139,9 @@ nn_panduo.formacc.prototype = {
 			}
 			if($(_this.event_obj).attr("to_list")){
 				layer.msg("操作成功!");
-	            setTimeout(function(){
-		          	window.location.reload();
-		        },1000);
+				setTimeout(function(){
+					window.location.reload();
+				},1000);
 			}else{
 				$(_this.event_obj).attr("title","");//$(_this.event_obj).attr("title") == "启用" ? "停用" : "启用");
 				$(_this.event_obj).attr("ajax_status",$(_this.event_obj).attr("ajax_status") == 1 ? 0 : 1);
@@ -161,39 +161,41 @@ nn_panduo.formacc.prototype = {
 	ajax_post:function(url,ajax_data,suc_callback,err_callback){
 		var _this = this;
 		$.ajax({
-          type:'post',
-          url:url,
-          data:ajax_data,
-          dataType:'json',
-          success:function(data){
-            if(data.success == 1){
-              _this.ajax_return_data = data;
-              if(typeof(eval(suc_callback)) == 'function'){
-	              suc_callback();
-	          }
-              _this.ajax_return_data = '';
-            }else{
-              if(typeof(eval(err_callback)) == 'function'){
-	              err_callback();
-	          }
-              layer.msg(data.info);
-            }
-          },
-          error:function(data){
-            layer.msg("服务器错误,请重试");
-          }
-        });
+			type:'post',
+			url:url,
+			data:ajax_data,
+			dataType:'json',
+			success:function(data){
+				if(data.success == 1){
+					_this.ajax_return_data = data;
+					if(typeof(eval(suc_callback)) == 'function'){
+						suc_callback();
+					}
+					_this.ajax_return_data = '';
+				}else{
+					if(typeof(eval(err_callback)) == 'function'){
+						err_callback();
+					}
+					layer.msg(data.info);
+				}
+			},
+			error:function(data){
+				layer.msg("服务器错误,请重试");
+			}
+		});
 	}
 }
 
 
 $(function(){
-	 formacc = new nn_panduo.formacc();
+	formacc = new nn_panduo.formacc();
 	formacc.bind_status_handle();
 
 	formacc.form_init();
 
 })
+
+
 
 
 
