@@ -6,12 +6,12 @@
 
     </script>
     <div class="idTabs">
-      <ul class="tab">
+     <!-- <ul class="tab">
         <li><a href="#main">常规设置</a></li>
 
         <li><a href="#mail">邮件设置</a></li>
 
-      </ul>
+      </ul>-->
       <div class="items">
        <form action="{url:admin/system/configUpdate}" method="post" auto_submit>
         <input type="hidden" name="tab" value="main" />
@@ -74,7 +74,7 @@
         </div>
 
         </form>
-
+<!--
         <form action="{url:admin/system/configUpdate}" method="post" auto_submit >
          <input type="hidden" name="tab" value="mail" />
         <div id="mail">
@@ -142,7 +142,7 @@
         </div>
 
 
-        </form>
+        </form>-->
       </div>
     </div>
 

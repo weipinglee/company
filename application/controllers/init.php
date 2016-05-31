@@ -10,8 +10,7 @@ use Library\client;
 class initController extends Yaf\Controller_Abstract{
 
     public function init(){
-
-echo 'kj';
+        $this->getView()->setLayout('layout');
 
 
 
