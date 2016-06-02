@@ -41,16 +41,13 @@
                             <ul class="sf-menu">
                                 <li class="current"><a href="{url:/index/index}">首页</a></li>
                                 <li><a href="{url:/index/about}">企业简介</a></li>
-                                <li><a href="search.html">会员查询</a></li>
+                                <li><a href="{url:/member/index}">会员查询</a></li>
                                 <li>
-                                    <a href="services.html">健康产品</a>
-                                    <ul>
-                                        <li><a href="services_2.html">产品1</a></li>
-                                        <li><a href="services_1.html">产品2</a></li>
-                                    </ul>
+                                    <a href="{url:/product/index}">健康产品</a>
+
                                 </li>
-                                <li><a href="news.html">健康养生</a></li>
-                                <li><a href="blog.html">公司动态</a></li>
+                                <li><a href="{url:/index/healthy}">健康养生</a></li>
+                                <li><a href="{url:/index/dongtai}">公司动态</a></li>
                                 <li><a href="contacts.html">联系方式</a></li>
                             </ul>
                         </nav>

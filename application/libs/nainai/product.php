@@ -130,7 +130,11 @@ class product extends base{
         $Q->group = 'p.id';
         if(intval($num)!=0){}
             $Q->limit = $num;
-        return $Q->find();
+        $res = $Q->find();
+        foreach($res as $k=>$v){
+            $res[$k]['thumb'] = \Library\thumb::get($v['file'],270,198);
+        }
+        return $res;
 
     }
 
