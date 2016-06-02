@@ -77,6 +77,20 @@ class member extends base{
 
     }
 
+    public function searchMember($name){
+        $obj = new M($this->table);
+        $res =  $obj->where(array('name'=>$name))->getObj();
+        if(!empty($res)){
+             $str = substr($res['identify_no'],0,6);
+
+            $str .= '********';
+            $str .= substr($res['identify_no'],14);
+            $res['identify_no'] = $str;
+
+        }
+        return $res;
+    }
+
 
 
 
