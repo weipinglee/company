@@ -4,7 +4,7 @@
 <section id="content"><!-- <div class="ic">More Website Templates @ TemplateMonster.com - September08, 2014!</div> -->
     <div class="container">
         <div class="row wrap_11">
-            <div class="grid_8">
+            <div class="grid_8" >
                 <div class="wrap_10">
 
                     <h2 class="header_2 indent_3">最新动态</h2>
@@ -13,7 +13,7 @@
                     <div class="box_6">
                         <div class="put-left">
                             <div class="caption">
-                                <img src="{if:isset($item['img'][0])}{$item['img'][0]['file']}{/if}" />
+                                <img src="{if:isset($item['img'][0])}{$item['img'][0]['thumb']}{/if}" />
                                     <p class="text_2 color_1">
                                         {$item['title']}
                                     </p>
@@ -32,26 +32,21 @@
                     {/foreach}
 
             </div>
-            <div class="grid_4_4">
+            <div class="grid_4_4" >
                 <div class="wrap_10">
                     <h2 class="header_2 indent_3">
-                        更多精彩
+
                     </h2>
-                    <div class="grid_1_1 put-left" style="margin:0;"><img src="images/1463990612624.jpg"></div>
-                    <span class="grid_2 put-right">这也是其他的信息</span>
-                    <div class="clearfix"></div>
+                   <div class="clearfix"></div>
                     <ul class="list_2 text_2 color_5 grid_4_4">
-                        <li><a href="article.html">这是其他的信息</a></li>
-                        <li><a href="article.html">这是其他的信息</a></li>
-                        <li><a href="article.html">这是其他的信息</a></li>
-                        <li><a href="article.html">这是其他的信息</a></li>
-                        <li><a href="article.html">这是其他的信息</a></li>
-                        <li><a href="article.html">这是其他的信息</a></li>
-                        <li><a href="article.html">这是其他的信息</a></li>
-                        <li><a href="article.html">这是其他的信息</a></li>
-                        <li><a href="article.html">这是其他的信息</a></li>
+                        {foreach:items=$data}
+                        {if:$key>=3}
+                        <li><a href="{url:/index/dongtai}">{$item['title']}</a></li>
+                        {/if}
+                        {/foreach}
                     </ul>
                 </div>
             </div>
         </div>
     </div>
+        </section>

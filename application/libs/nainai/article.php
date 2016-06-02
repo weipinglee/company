@@ -20,6 +20,8 @@ class article extends base{
 
     protected $healthy = 'healthy';
 
+    protected $dongtai = 'dongtai';
+
     protected $pk = 'id';
     protected $rules = array(
         array('id','number','错误',0,'regex'),
@@ -120,7 +122,7 @@ class article extends base{
         return $data;
     }
 
-    public function getArticleList($where){
+    public function getArticleList($where,$width=200,$height=150){
         $obj = new Query($this->table.' as a');
         $obj->join = 'left join article_category as ac on a.cat_id = ac.cat_id';
         $obj->where = $where;
@@ -164,7 +166,7 @@ class article extends base{
     }
 
     public function getDongtaiArticle(){
-        return $data = $this->getArticleList('ac.cat_id=13');
+        return $data = $this->getArticleList('ac.description="'.$this->dongtai.'"',370,270);
 
     }
 
