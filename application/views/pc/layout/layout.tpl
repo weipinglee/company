@@ -33,14 +33,14 @@
                         <div class="brand put-left">
                             <h1>
                                 <a href="index.html">
-                                    <img src="images/logo.png" alt="Logo"/>
+                                    <img src="{$logo}" alt="Logo"/>
                                 </a>
                             </h1>
                         </div>
                         <nav class="nav put-right">
                             <ul class="sf-menu">
-                                <li class="current"><a href="index.html">首页</a></li>
-                                <li><a href="about.html">企业简介</a></li>
+                                <li class="current"><a href="{url:/index/index}">首页</a></li>
+                                <li><a href="{url:/index/about}">企业简介</a></li>
                                 <li><a href="search.html">会员查询</a></li>
                                 <li>
                                     <a href="services.html">健康产品</a>
@@ -63,14 +63,90 @@
 {content}
 
 
- <!--========================================================
+ <div class="footer">
+<div class="container">
+    <div class="row wrap_9 wrap_4 wrap_10">
+        <div class="grid_2 put-left">
+            <div class="header_1 color_1">
+                <b>关于国库</b>
+            </div>
+            <div class="box_3">
+                <ul class="list_2">
+                    <li><a class="fa" href="#">关于国库</a></li>
+                    <li><a class="fa" href="#">健康产品</a></li>
+                    <li><a class="fa" href="#">行业动态</a></li>
+                    <li><a class="fa" href="#">快速链接</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="grid_2 put-left">
+            <div class="header_1 color_1">
+                <b>健康产品</b>
+            </div>
+            <div class="box_3">
+                <ul class="list_2">
+                    <li><a class="fa" href="#">关于国库</a></li>
+                    <li><a class="fa" href="#">健康产品</a></li>
+                    <li><a class="fa" href="#">行业动态</a></li>
+                    <li><a class="fa" href="#">快速链接</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="grid_2 put-left">
+            <div class="header_1 color_1">
+                <b>行业动态</b>
+            </div>
+            <div class="box_3">
+                <ul class="list_2">
+                    <li><a class="fa" href="#">关于国库</a></li>
+                    <li><a class="fa" href="#">健康产品</a></li>
+                    <li><a class="fa" href="#">行业动态</a></li>
+                    <li><a class="fa" href="#">快速链接</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="grid_2 put-left">
+            <div class="header_1 color_1">
+                <b>快速链接</b>
+            </div>
+            <div class="box_3">
+                <ul class="list_2">
+                    <li><a class="fa" href="#">关于国库</a></li>
+                    <li><a class="fa" href="#">健康产品</a></li>
+                    <li><a class="fa" href="#">行业动态</a></li>
+                    <li><a class="fa" href="#">快速链接</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="grid_4 put-right">
+            <div class="header_1 wrap_3 color_1">
+                服务电话：{$tel}
+               <!-- <img src="images/qrkd.png">-->
+                <h4>官方微信</h4>
+            </div>
+            <div class="box_3">
+                <ul class="list_1">
+                    <li><a class="fa fa-twitter" href="#"></a></li>
+                    <li><a class="fa fa-facebook" href="#"></a></li>
+                    <li><a class="fa fa-google-plus" href="#"></a></li>
+                    <li><a class="fa fa-pinterest" href="#"></a></li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</div>
+</section>
+</div></div>
+<!--========================================================
                           FOOTER
 =========================================================-->
 <footer id="footer" class="color_9">
     <div class="container">
         <div class="row">
             <div class="grid_12">
-                <p class="info text_4 color_4"></p>
+                <p class="info text_4 color_4">Copyright &copy; 2015.Company name All rights reserved.</p>
             </div>
         </div>
     </div>

@@ -20,7 +20,7 @@
                     <tr>
                         <td width="80" height="35" align="right">文章标题</td>
                         <td>
-                           <span> <input type="text"  name="title" datatype="s2-30" nullmsg="请填写文章标题" errormsg="文章标题格式错误" value="{$article['title']}" size="40" class="inpMain" />
+                           <span> <input type="text"  name="title" datatype="*2-30" nullmsg="请填写文章标题" errormsg="文章标题格式错误" value="{$article['title']}" size="40" class="inpMain" />
                             </span>
                             <span></span>
                         </td>

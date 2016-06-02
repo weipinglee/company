@@ -14,6 +14,7 @@ class product extends base{
 
     protected $table = 'product';
     protected $imgTable = 'images';
+    protected $imgType = 'product';
     protected $pk = 'id';
     protected $rules = array(
         array('id','number','错误',0,'regex'),
@@ -27,13 +28,13 @@ class product extends base{
     );
 
     /**
-     * 获取产品列表
+     * 获取产品列表（后台调用）
      * @param int $page 页码
      * @param array $search 搜索条件
      * @return array
      */
     public function getList($page,$search=array()){
-        $Q = new Query('product');
+        $Q = new Query($this->table);
         $Q->page = $page;
         $Q->pagesize = 20;
         $where = '';
@@ -83,11 +84,11 @@ class product extends base{
             }
             $obj->table($this->imgTable);
             $imgArr = array();
-            $obj->where(array('product_id'=>$id,'type'=>'product'))->delete();
+            $obj->where(array('product_id'=>$id,'type'=>$this->imgType))->delete();
             if(!empty($imgData)){
                 foreach($imgData as $k=>$v){
                     $imgArr[$k]['file'] = $v;
-                    $imgArr[$k]['type'] = 'product';
+                    $imgArr[$k]['type'] = $this->imgType;
                     $imgArr[$k]['product_id'] = $id;
                 }
 
@@ -110,11 +111,27 @@ class product extends base{
 
     public function  getProductImages($id){
         $obj = new M($this->imgTable);
-        $data = $obj->where(array('product_id'=>$id,'type'=>'product'))->select();
+        $data = $obj->where(array('product_id'=>$id,'type'=>$this->imgType))->select();
         foreach($data as $k=>$v){
             $data[$k]['thumb'] = thumb::get($v['file'],100,100);
         }
         return $data;
+    }
+
+    /**
+     * 获取
+     * @param int $num 为0时获取全部
+     */
+    public function getProductList($num=0){
+        $Q = new Query($this->table .' as p');
+        $Q->join = 'left join '.$this->imgTable.' as i on p.id=i.product_id and i.type= "'.$this->imgType.'"';
+        $Q->where = 'p.status=1';
+        $Q->fields = ' p.id,p.cat_id,p.price,p.name,p.description,i.file';
+        $Q->group = 'p.id';
+        if(intval($num)!=0){}
+            $Q->limit = $num;
+        return $Q->find();
+
     }
 
 

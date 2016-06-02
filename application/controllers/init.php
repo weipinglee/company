@@ -11,8 +11,11 @@ class initController extends Yaf\Controller_Abstract{
 
     public function init(){
         $this->getView()->setLayout('layout');
-
-
+        $config = new configModel();
+        $logo = $config->getConfig('site_logo');
+        $phone = $config->getConfig('tel');
+        $this->getView()->assign('logo',$logo);
+        $this->getView()->assign('tel',$phone);
 
     }
 }

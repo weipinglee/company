@@ -16,7 +16,7 @@ class show extends base{
     protected $rules = array(
         array('id','number','错误',0,'regex'),
         array('show_name','s{2,30}','幻灯名格式错误',0,'regex'),
-        array('show_link','url','导航链接错误',0,'regex'),
+        array('show_link','url','导航链接错误',2,'regex'),
         array('show_img','/^[a-zA-Z0-9_@\.\/]+$/','图片格式错误',0,'regex'),
         array('type',array('mobile','pc'),'类型格式错误',0,'in'),
         array('sort','number','格式错误',0,'regex'),
@@ -26,6 +26,7 @@ class show extends base{
         $obj = new M('show');
         $data = $obj->select();
         foreach($data as $k=>$v){
+            $data[$k]['show_upload'] = $data[$k]['show_img'];
             $data[$k]['show_img'] = thumb::get($data[$k]['show_img'],150,150);
         }
         return $data;

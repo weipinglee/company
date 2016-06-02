@@ -1018,3 +1018,11 @@ a[data-type='lightbox']:hover img {
   background: #129894;
   width: 100%;
 }
+
+.show{
+  display:block;
+}
+
+.hide{
+  display:none;
+}

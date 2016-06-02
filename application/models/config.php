@@ -17,7 +17,7 @@ class configModel{
         array('value','/^[\S]{1,255}$/u','配置信息错误',0,'regex')
     );
     public function getconfigList(){
-        $configObj = new M('config');
+        $configObj = new M($this->table);
         $config = $configObj->where(array('status'=>1))->select();
         foreach($config as $key=>$val){
             if($val['type']=='file'){
@@ -47,5 +47,18 @@ class configModel{
             }
         }
         else return tool::getSuccInfo(0,'参数错误');
+    }
+
+    /**
+     * 获取某项配置信息
+     * @param $c 配置字段
+     */
+    public function getConfig($c){
+        $configObj = new M($this->table);
+        $config = $configObj->where(array('name'=>$c))->getObj();
+        if(isset($config['value'])){
+            return $config['value'];
+        }
+        return '';
     }
 }

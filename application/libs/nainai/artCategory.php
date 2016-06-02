@@ -9,6 +9,7 @@ namespace nainai;
 use \Library\M;
 use \Library\tool;
 use \Library\thumb;
+use \Library\Query;
 class artCategory extends base{
 
     protected $table = 'article_category';
@@ -95,6 +96,29 @@ class artCategory extends base{
 
         return $ids;
 
+    }
+
+    /**
+     * 根据描述获取所有下级分类的文章
+     * @param $des
+     */
+    public function getChildByDescription($des){
+        $m = new M($this->table);
+        $id = $m->where(array('description'=>$des))->getField('cat_id');
+        if(intval($id)>0){
+           $obj = new Query('article_category as ac');
+            $obj->join = 'left join article as a on ac.cat_id=a.cat_id ';
+            $obj->where = 'ac.parent_id = '.$id;
+            $data = $obj->find();
+            $res = array();
+            foreach($data as $k=>$v){
+                $res[$v['cat_id']]['cat_name'] = $v['cate_name'];
+                $res[$v['cat_id']][] = $v;
+
+            }
+           return $res;
+        }
+        return array();
     }
 
 
