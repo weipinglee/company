@@ -80,7 +80,8 @@ class articleController extends baseController{
             'title'  => safe::filterPost('title'),
             'cat_id'=> safe::filterPost('cat_id','int'),
             'description' => safe::filterPost('description'),
-            'content'     => safe::filterPost('content','text'),
+            'showindex' => safe::filterPost('index'),
+            'content'     => $_POST['content'],
             'status'      => safe::filterPost('status','int'),
             'sort'        => safe::filterPost('sort','int'),
         );

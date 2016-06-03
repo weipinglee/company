@@ -77,8 +77,10 @@ class systemController extends baseController{
         $this->getView()->assign('cur','nav');
         $this->getView()->assign('here','添加导航');
         $guide = new \nainai\guide();
+        $siteNav = $guide->siteNav();
         $middle = $guide->getNavList('middle');
 
+        $this->getView()->assign('sitenav',$siteNav);
         $this->getView()->assign('parent',$middle);
 
     }

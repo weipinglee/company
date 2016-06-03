@@ -14,6 +14,11 @@ class initController extends Yaf\Controller_Abstract{
         $config = new configModel();
         $logo = $config->getConfig('site_logo');
         $phone = $config->getConfig('tel');
+
+        //»ñÈ¡µ¼º½
+        $guide = new \nainai\guide();
+       $navList =  $guide->getNavList('middle');
+        $this->getView()->assign('navlist',$navList);
         $this->getView()->assign('logo',$logo);
         $this->getView()->assign('tel',$phone);
 

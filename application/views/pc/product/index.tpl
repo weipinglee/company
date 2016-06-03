@@ -29,11 +29,11 @@
                                     <a href="product.html"><img src="{$item['thumb']}" alt="Image 1"/></a>
                                 </div>
                                 <div class="caption">
-                                    <h3 class="text_2 color_2"><a href="product.html">{$item['name']}</a></h3>
+                                    <h3 class="text_2 color_2"><a href="{url:/product/detail?id=$item['id']}">{$item['name']}</a></h3>
                                     <p class="text_5">
                                         {$item['description']}
                                     </p>
-                                    <a class="btn_2" href="product.html">查看详情</a></div>
+                                    <a class="btn_2" href="{url:/product/detail?id=$item['id']}">查看详情</a></div>
                             </div>
                         </div>
                         {/foreach}

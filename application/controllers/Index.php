@@ -15,6 +15,12 @@ class IndexController extends initController{
 		$product = new \nainai\product();
 		$proList = $product->getProductList($this->product_num);
 
+		//获取首页显示的文章
+		$article = new \nainai\article();
+		$articleList = $article->getIndexArticle();
+
+
+		$this->getView()->assign('article',$articleList);
 		$this->getView()->assign('product',$proList);
 
 	}
@@ -43,11 +49,24 @@ class IndexController extends initController{
 
 	}
 
-	public function dongtaiAction(){
+
+	/**
+	 * 公司动态
+	 */
+	public function blogAction(){
 		$obj = new \nainai\article();
 		$res = $obj->getDongtaiArticle();
 
 		$this->getView()->assign('data',$res);
 	}
+
+	public function contactsAction(){
+		$obj = new \nainai\article();
+		$res = $obj->getContactsArticle();
+
+		$this->getView()->assign('data',$res);
+	}
+
+
 
 }

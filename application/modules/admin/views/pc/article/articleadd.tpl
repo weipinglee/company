@@ -44,7 +44,7 @@
                     <tr>
                         <td width="80" height="35" align="right">简单描述</td>
                         <td>
-                           <span> <input type="text"  name="description" datatype="*0-40"  errormsg="" value="{$article['description']}" size="40" class="inpMain" />
+                           <span> <textarea  style="width:280px;" name="description" datatype="*0-200"  errormsg=""   class="inpMain" >{$article['description']}</textarea>
                             </span>
                             <span></span>
                         </td>
@@ -90,7 +90,20 @@
                             </span>
                         </td>
                     </tr>
+                    <tr>
+                        <td height="35" align="right">是否在首页显示</td>
+                        <td>
+                            <label for="radio1">
+                                <input id="radio1" type="radio" value="1" name="index" {if:!isset($article['showindex']) || $article['showindex']==1 }checked{/if}/>
+                                是
+                            </label>
+                            <label for="radio2">
+                                <input id="radio2" type="radio" value="0" name="index" {if:isset($article['showindex']) && $article['showindex']==0 }checked{/if}/>
+                                否
+                            </label>
 
+                        </td>
+                    </tr>
                     <tr>
                         <td height="35" align="right">是否开启</td>
                         <td>

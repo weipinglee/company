@@ -25,6 +25,8 @@ class guide extends base{
         array('sort','number','格式错误',0,'regex'),
     );
 
+
+
     /**
      * 检查类型是否正确，不正确返回第一个类型
      * @param $type
@@ -73,7 +75,7 @@ class guide extends base{
 
         if(in_array($type,self::$navType)){
             $obj = new M('nav');
-            $navList = $obj->where(array('type'=>$type))->select();
+            $navList = $obj->where(array('type'=>$type))->order('sort asc')->select();
             $navList = $this->generateTree($navList);
             if($show==1){
                 foreach($navList as $k=>$v){

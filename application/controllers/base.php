@@ -20,7 +20,7 @@ class baseController extends Yaf\Controller_Abstract{
        $right = new \Library\checkRight();
 
        if(!$right->checkLogin($this)){//Î´µÇÂ¼Ìø×ªµ½µÇÂ½Ò³Ãæ
-          $this->redirect(url::createUrl('admin/login/login'));
+          header('location:'.url::createUrl('admin/login/login'));
           exit;
        }
 
@@ -35,6 +35,8 @@ class baseController extends Yaf\Controller_Abstract{
             $this->redirect(url::createUrl('admin/index/index'));
             exit;
         }
+
+
 
 
 

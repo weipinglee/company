@@ -22,6 +22,8 @@ class article extends base{
 
     protected $dongtai = 'dongtai';
 
+    protected $contacts = 'contacts';
+
     protected $pk = 'id';
     protected $rules = array(
         array('id','number','错误',0,'regex'),
@@ -29,7 +31,6 @@ class article extends base{
         array('price','currency','价格错误',0,'regex'),
         array('unit','s{1,20}','单位错误',0,'regex'),
         array('name','s{2,30}','商品名错误',0,'regex'),
-        array('description','s{0,255}','描述错误',0,'regex'),
         array('status','number','格式错误',0,'regex'),
         array('sort','number','格式错误',0,'regex'),
     );
@@ -125,7 +126,9 @@ class article extends base{
     public function getArticleList($where,$width=200,$height=150){
         $obj = new Query($this->table.' as a');
         $obj->join = 'left join article_category as ac on a.cat_id = ac.cat_id';
+        $obj->fields = 'a.*';
         $obj->where = $where;
+        $obj->order = 'a.sort asc';
         $obj->limit = 5;
         $res = $obj->find();
         foreach($res as $k=>$v){
@@ -165,9 +168,22 @@ class article extends base{
 
     }
 
+    /**
+     * 获取动态
+     * @return array
+     */
     public function getDongtaiArticle(){
         return $data = $this->getArticleList('ac.description="'.$this->dongtai.'"',370,270);
 
+    }
+
+    public function getContactsArticle(){
+        return $this->getArticleList(' ac.description="'.$this->contacts.'"');
+    }
+
+    public function getIndexArticle(){
+        $m = new M($this->table);
+        return $m->where(array('status'=>1,'showindex'=>1))->select();
     }
 
 

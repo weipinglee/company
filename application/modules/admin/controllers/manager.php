@@ -10,6 +10,7 @@ use \Library\json;
 
 class managerController extends baseController{
 
+
     public function managerListAction(){
         $this->getView()->assign('cur','adminList');
         $this->getView()->assign('here','管理员列表');
