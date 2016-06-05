@@ -40,7 +40,7 @@
                         <nav class="nav put-right">
                             <ul class="sf-menu">
                             {foreach:items=$navlist}
-                             <li class=""><a href="{$item['guide']}">{$item['nav_name']}</a></li>
+                            <li {if:isset($cur)&& $cur==$item['nav_name']}class="current"{/if}><a href="{$item['guide']}">{$item['nav_name']}</a></li>
                             {/foreach}
 
 

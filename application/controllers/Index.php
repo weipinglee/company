@@ -6,16 +6,17 @@ class IndexController extends initController{
 	protected $product_num = 4;
 	public function indexAction() {
 
-		//»ñÈ¡»ÃµÆ
+		$this->getView()->assign('cur','é¦–é¡µ');
+		//è·å–å¹»ç¯
 		$show = new \nainai\show();
 		$showList = $show->showList();
 		$this->getView()->assign('show',$showList);
 
-		//»ñÈ¡²úÆ·Á¬
+		//è·å–äº§å“è¿
 		$product = new \nainai\product();
 		$proList = $product->getProductList($this->product_num);
 
-		//»ñÈ¡Ê×Ò³ÏÔÊ¾µÄÎÄÕÂ
+		//è·å–é¦–é¡µæ˜¾ç¤ºçš„æ–‡ç« 
 		$article = new \nainai\article();
 		$articleList = $article->getIndexArticle();
 
@@ -26,18 +27,20 @@ class IndexController extends initController{
 	}
 
 	/**
-	 * ¹«Ë¾¼ò½é
+	 * å…¬å¸ç®€ä»‹
 	 */
 	public function aboutAction(){
+		$this->getView()->assign('cur','ä¼ä¸šç®€ä»‹');
 		$obj = new \nainai\article();
 		$data = $obj->getAboutArticle();
 		$this->getView()->assign('about',$data);
 	}
 
 	/**
-	 * ½¡¿µĞĞÒµ
+	 * å¥åº·è¡Œä¸š
 	 */
 	public function healthyAction(){
+		$this->getView()->assign('cur','å¥åº·å…»ç”Ÿ');
 		$obj = new \nainai\article();
 		$data = $obj->getHealthyArticle();
 		$res = array();
@@ -51,9 +54,10 @@ class IndexController extends initController{
 
 
 	/**
-	 * ¹«Ë¾¶¯Ì¬
+	 * å…¬å¸åŠ¨æ€
 	 */
 	public function blogAction(){
+		$this->getView()->assign('cur','å…¬å¸åŠ¨æ€');
 		$obj = new \nainai\article();
 		$res = $obj->getDongtaiArticle();
 
@@ -61,13 +65,14 @@ class IndexController extends initController{
 	}
 
 	public function contactsAction(){
+		$this->getView()->assign('cur','è”ç³»æ–¹å¼');
 		$obj = new \nainai\article();
 		$res = $obj->getContactsArticle();
 
 		$this->getView()->assign('data',$res);
 	}
 
-	//»ñÈ¡ÎÄÕÂÏêÇé
+	//è·å–æ–‡ç« è¯¦æƒ…
 	public function articleAction(){
 		$id = \Library\safe::filterGet('id','int',0);
 		if($id>0){
@@ -75,11 +80,11 @@ class IndexController extends initController{
 			$product = $productObj->get($id);
 			$product['content'] = \Library\safe::stripSlash($product['content']);
 
-			//»ñÈ¡Í¼Æ¬Êı¾İ
+			//è·å–å›¾ç‰‡æ•°æ®
 			$product['images'] = $productObj->getArticleImages($id,400,300);
 
 
-			//»ñÈ¡Í¬ÀàÎÄÕÂÁĞ±í
+			//è·å–åŒç±»æ–‡ç« åˆ—è¡¨
 			$list = $productObj->getArticleByCateId($product['cat_id']);
 
 			$this->getView()->assign('list',$list);
