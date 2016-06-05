@@ -66,7 +66,7 @@
             <div class="box_3">
                 <ul class="list_2">
                 {foreach:items=$item item=$title}
-                    <li><a class="fa" href="{url:/index/article?id=$title['id']}">{$title['title']}</a></li>
+                    <li><a class="fa" href="{url:/index/article}?id={$title['id']}">{$title['title']}</a></li>
                 {/foreach}
                 </ul>
             </div>

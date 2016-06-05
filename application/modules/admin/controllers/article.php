@@ -85,6 +85,7 @@ class articleController extends baseController{
             'content'     => $_POST['content'],
             'status'      => safe::filterPost('status','int'),
             'sort'        => safe::filterPost('sort','int'),
+            'add_time'    => \Library\time::getDateTime()
         );
         $imgData = safe::filterPost('imgData');
 

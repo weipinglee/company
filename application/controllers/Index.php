@@ -67,6 +67,27 @@ class IndexController extends initController{
 		$this->getView()->assign('data',$res);
 	}
 
+	//获取文章详情
+	public function articleAction(){
+		$id = \Library\safe::filterGet('id','int',0);
+		if($id>0){
+			$productObj = new \nainai\article();
+			$product = $productObj->get($id);
+			$product['content'] = \Library\safe::stripSlash($product['content']);
+
+			//获取图片数据
+			$product['images'] = $productObj->getArticleImages($id,400,300);
+
+
+			//获取同类文章列表
+			$list = $productObj->getArticleByCateId($product['cat_id']);
+
+			$this->getView()->assign('list',$list);
+			$this->getView()->assign('article',$product);
+		}
+
+	}
+
 
 
 
