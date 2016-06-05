@@ -22,5 +22,10 @@ class initController extends Yaf\Controller_Abstract{
         $this->getView()->assign('logo',$logo);
         $this->getView()->assign('tel',$phone);
 
+        //获取底部文章列表
+        $pro = new \nainai\article();
+        $bottomArt = $pro->getBottomarticle();
+        $this->getView()->assign('bottom',$bottomArt);
+
     }
 }

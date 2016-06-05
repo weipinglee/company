@@ -58,58 +58,22 @@
  <div class="footer">
 <div class="container">
     <div class="row wrap_9 wrap_4 wrap_10">
+    {foreach:items=$bottom}
         <div class="grid_2 put-left">
             <div class="header_1 color_1">
-                <b>关于国库</b>
+                <b>{$key}</b>
             </div>
             <div class="box_3">
                 <ul class="list_2">
-                    <li><a class="fa" href="#">关于国库</a></li>
-                    <li><a class="fa" href="#">健康产品</a></li>
-                    <li><a class="fa" href="#">行业动态</a></li>
-                    <li><a class="fa" href="#">快速链接</a></li>
+                {foreach:items=$item item=$title}
+                    <li><a class="fa" href="{url:/index/article?id=$title['id']}">{$title['title']}</a></li>
+                {/foreach}
                 </ul>
             </div>
         </div>
-        <div class="grid_2 put-left">
-            <div class="header_1 color_1">
-                <b>健康产品</b>
-            </div>
-            <div class="box_3">
-                <ul class="list_2">
-                    <li><a class="fa" href="#">关于国库</a></li>
-                    <li><a class="fa" href="#">健康产品</a></li>
-                    <li><a class="fa" href="#">行业动态</a></li>
-                    <li><a class="fa" href="#">快速链接</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="grid_2 put-left">
-            <div class="header_1 color_1">
-                <b>行业动态</b>
-            </div>
-            <div class="box_3">
-                <ul class="list_2">
-                    <li><a class="fa" href="#">关于国库</a></li>
-                    <li><a class="fa" href="#">健康产品</a></li>
-                    <li><a class="fa" href="#">行业动态</a></li>
-                    <li><a class="fa" href="#">快速链接</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="grid_2 put-left">
-            <div class="header_1 color_1">
-                <b>快速链接</b>
-            </div>
-            <div class="box_3">
-                <ul class="list_2">
-                    <li><a class="fa" href="#">关于国库</a></li>
-                    <li><a class="fa" href="#">健康产品</a></li>
-                    <li><a class="fa" href="#">行业动态</a></li>
-                    <li><a class="fa" href="#">快速链接</a></li>
-                </ul>
-            </div>
-        </div>
+    {/foreach}
+
+
 
         <div class="grid_4 put-right">
             <div class="header_1 wrap_3 color_1">

@@ -29,7 +29,8 @@ class articleController extends baseController{
             'cate_name'=> safe::filterPost('cate_name'),
             'description'=> safe::filterPost('description'),
             'parent_id' => safe::filterPost('parent_id'),
-            'sort'     => safe::filterPost('sort','int')
+            'sort'     => safe::filterPost('sort','int'),
+            'bottom'   => safe::filterPost('bottom','int')
         );
 
         $res = $model->update($data);

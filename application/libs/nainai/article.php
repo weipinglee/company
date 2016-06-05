@@ -181,9 +181,26 @@ class article extends base{
         return $this->getArticleList(' ac.description="'.$this->contacts.'"');
     }
 
+    //获取在首页显示的文章
     public function getIndexArticle(){
         $m = new M($this->table);
         return $m->where(array('status'=>1,'showindex'=>1))->select();
+    }
+
+    /**
+     * 获取底部显示的文章列表
+     */
+    public function getBottomarticle(){
+        $pro = new \nainai\artCategory();
+        $m = new M($this->table);
+        $cate = $pro->getBottomCate();
+        $bottomArt = array();
+        foreach($cate as $k=>$v){
+            $bottomArt[$v['cate_name']] = $m->fields('id,title')->where('status=1 and cat_id in ('.$v['ids'].')')->select();
+
+        }
+
+        return $bottomArt;
     }
 
 

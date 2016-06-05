@@ -50,6 +50,10 @@ class baseController extends Yaf\Controller_Abstract{
         $this->getView()->assign('nav',$leftNav);
 
 
+
+
+
+
     }
 
 
@@ -79,4 +83,7 @@ class baseController extends Yaf\Controller_Abstract{
 
         return false;
     }
+
+
+
 }

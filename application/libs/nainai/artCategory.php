@@ -84,7 +84,9 @@ class artCategory extends base{
      */
     public function getChildCate($id){
          $m = new M($this->table);
-        static $ids = array();
+
+            static $ids = array();
+
         $cateIds = $m->where(array('parent_id'=>$id))->getFields('cat_id');
 
         if(!empty($cateIds)){
@@ -119,6 +121,35 @@ class artCategory extends base{
            return $res;
         }
         return array();
+    }
+
+    /**
+     * 获取在底部显示的分类
+     */
+    public function getBottomCate(){
+        $m = new M($this->table);
+        $bottom = $m->where(array('status'=>1,'bottom'=>1))->select();
+
+        $ids = array();
+        foreach($bottom as $k=>$v){
+            if(isset($temp)&&!empty($temp)){
+                $temp2 = $temp;
+            }
+            else $temp2 =array();
+            $temp = $this->getChildCate($v['cat_id'],1);
+            $temp[] = $v['cat_id'];
+            $ids[$k]['ids'] = array_diff($temp,$temp2);
+            if(empty($ids[$k]['ids']))
+                unset($ids[$k]);
+            else{
+                $ids[$k]['ids'] = implode(',',$ids[$k]['ids']);
+                $ids[$k]['cate_name'] = $v['cate_name'];
+            }
+
+
+        }
+        return $ids;
+
     }
 
 

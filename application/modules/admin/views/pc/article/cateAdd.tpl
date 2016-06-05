@@ -9,7 +9,7 @@
                 <input type="hidden" name="id" value="{$cate['cat_id']}" />
                 <table width="100%" border="0" cellpadding="5" cellspacing="1" class="tableBasic">
                     <tr>
-                        <td width="80" height="35" align="right">分类名称</td>
+                        <td width="90" height="35" align="right">分类名称</td>
                         <td>
                            <span> <input type="text"  name="cate_name" datatype="s2-30" nullmsg="请填写分类名" errormsg="分类名格式错误" value="{$cate['cate_name']}" size="40" class="inpMain" />
                             </span>
@@ -44,6 +44,21 @@
                             </label>
                             <label for="radio2">
                                 <input id="radio2" type="radio" value="0" name="status" {if:isset($cate['status']) && $cate['status']==0 }checked{/if}/>
+                                否
+                            </label>
+
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td height="35" align="right">是否在底部显示</td>
+                        <td>
+                            <label for="radio1">
+                                <input id="radio1" type="radio" value="1" name="bottom" {if:!isset($cate['bottom']) || $cate['bottom']==1 }checked{/if}/>
+                                是
+                            </label>
+                            <label for="radio2">
+                                <input id="radio2" type="radio" value="0" name="bottom" {if:isset($cate['bottom']) && $cate['bottom']==0 }checked{/if}/>
                                 否
                             </label>
 
