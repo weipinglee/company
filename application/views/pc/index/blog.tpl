@@ -14,18 +14,18 @@
                         <div class="box_6">
                             <div class="put-left">
                                 <div class="caption">
-                                    <a href="{url:/index/article?id=$item['id']}"><img src="{if:isset($item['img'][0])}{$item['img'][0]['thumb']}{/if}" alt="Image 1"/>
+                                    <a href="{url:/index/article}?id={$item['id']}"><img src="{if:isset($item['img'][0])}{$item['img'][0]['thumb']}{/if}" alt="Image 1"/>
                                     <p class="text_2 color_1">
                                         {$item['title']}
                                     </p></a>
                                 </div>
                             </div>
                             <div class="caption">
-                                <h3 class="text_2 color_2"><a href="article.html"> {$item['title']}</a></h3>
+                                <h3 class="text_2 color_2"><a href=""> {$item['title']}</a></h3>
                                 <p class="text_5">
                                     {$item['description']}
                                 </p>
-                                <a class="btn_2" href="{url:/index/article?id=$item['id']}">read more</a>
+                                <a class="btn_2" href="{url:/index/article}?id={$item['id']}">read more</a>
                             </div>
                             <div class="clearfix"></div>
                         </div>
@@ -41,12 +41,12 @@
                             更多精彩
                         </h2>
                         <div class="grid_1_1 put-left" style="margin:0;"><img src="{if:isset($data[3]['img'][0])}{$data[3]['img'][0]['thumb']}{/if}"></div>
-                        <span class="grid_2 put-right">{$data[3]['title']}</span>
+                        <span class="grid_2 put-right"><a href="{url:/index/article}?id={$data[3]['id']}">{$data[3]['title']}</a></span>
                             <div class="clearfix"></div>                        
                         <ul class="list_2 text_2 color_5 grid_4_4">
                             {foreach:items=$data}
                             {if:$key>3}
-                            <li><a href="{url:/index/dongtai}">{$item['title']}</a></li>
+                            <li><a href="{url:/index/article}?id={$item['id']}">{$item['title']}</a></li>
                             {/if}
                             {/foreach}
                         </ul>

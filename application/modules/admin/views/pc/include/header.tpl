@@ -1,6 +1,6 @@
 <div id="dcHead">
  <div id="head">
-  <div class="logo"><a href="index.php"><img src="images/dclogo.gif" alt="logo"></a></div>
+  <div class="logo"><a href=""><img src="{$logo}" alt="logo"></a></div>
   <div class="nav">
 
    <!--顶部左侧菜单-->

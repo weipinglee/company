@@ -50,6 +50,11 @@ class baseController extends Yaf\Controller_Abstract{
         $this->getView()->assign('nav',$leftNav);
 
 
+        $config = new configModel();
+        $logo = $config->getConfig('site_logo');
+        $logo = \Library\thumb::get($logo,80,30);
+        $this->getView()->assign('logo',$logo);
+
 
 
 

@@ -58,7 +58,7 @@
 
 
                         <div class="caption line wrap_5">
-                            <h3 class="text_6 color_2"><a href="{url:/index/article?id=$data[0][0]['id']}">{$data[0][0]['title']}</a></h3>
+                            <h3 class="text_6 color_2"><a href="{url:/index/article}?id={$data[0][0]['id']}">{$data[0][0]['title']}</a></h3>
                             <p class="text_5 wrap_16">
                                 {$data[0][0]['content']}
 
@@ -68,7 +68,7 @@
                         <ul style="list-style: url(images/dot.png);">
                             {foreach:items=$data[0]}
                                 {if:$key!=0 && is_int($key)}
-                                    <li><a href="{url:/index/article?id=$item['id']}">这是其他的信息</a></li>
+                                    <li><a href="{url:/index/article}?id={$item['id']}">{$item['title']}</a></li>
                                 {/if}
                             {/foreach}
                         </ul>
@@ -86,14 +86,14 @@
                         {if:isset($item[0])}
                             <div class="box_6">
                                 <div class="grid_2" style="margin:0;"><img src="{$item[0]['img'][0]['thumb']}"></div>
-                                <span class="grid_2"><a href="{url:/index/article?id=$item[0]['id']}">{$item[0]['title']}</a></span>
+                                <span class="grid_2"><a href="{url:/index/article}?id={$item[0]['id']}">{$item[0]['title']}</a></span>
                             </div>
                             {/if}
                             <div class="clearfix"></div>      
                             <ul class="grid_4_4 wrap_16">
                                 {foreach:items=$item key=$k item=$v}
                                 {if:$k!=0}
-                                <li><a href="{url:/index/article?id=$v['id']}">{$v['title']}</a></li>
+                                <li><a href="{url:/index/article}?id={$v['id']}">{$v['title']}</a></li>
                                  {/if}
                                 {/foreach}
                             </ul>

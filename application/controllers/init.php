@@ -13,6 +13,7 @@ class initController extends Yaf\Controller_Abstract{
         $this->getView()->setLayout('layout');
         $config = new configModel();
         $logo = $config->getConfig('site_logo');
+        $logo = \Library\thumb::get($logo,188,66);
         $phone = $config->getConfig('tel');
 
         //ªÒ»°µº∫Ω

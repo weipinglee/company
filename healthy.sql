@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 2016-06-07 05:44:52
+-- Generation Time: 2016-06-07 06:13:00
 -- 服务器版本： 5.6.17
 -- PHP Version: 5.5.12
 
@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `dou_admin_log` (
   PRIMARY KEY (`id`),
   KEY `create_time` (`create_time`),
   KEY `user_id` (`user_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=484 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=486 ;
 
 --
 -- 转存表中的数据 `dou_admin_log`
@@ -543,7 +543,9 @@ INSERT INTO `dou_admin_log` (`id`, `create_time`, `user_id`, `action`, `ip`) VAL
 (480, '2016-06-05 16:50:13', 1, '更改了id为10的文章分类', '127.0.0.1'),
 (481, '2016-06-05 17:45:06', 1, '更改了id为52的文章', '127.0.0.1'),
 (482, '2016-06-07 08:21:23', 1, '登录成功', '127.0.0.1'),
-(483, '2016-06-07 08:26:50', 1, '登录成功', '127.0.0.1');
+(483, '2016-06-07 08:26:50', 1, '登录成功', '127.0.0.1'),
+(484, '2016-06-07 12:00:27', 1, '登录成功', '127.0.0.1'),
+(485, '2016-06-07 12:08:38', 1, '登录成功', '127.0.0.1');
 
 -- --------------------------------------------------------
 
@@ -652,7 +654,7 @@ INSERT INTO `dou_config` (`name`, `name_zh`, `value`, `type`, `box`, `tab`, `sor
 ('site_title', '站点标题', 'XXX公司', 'text', '', 'main', 2, 1),
 ('site_keywords', '站点关键字', 'XXX公司', 'text', '', 'main', 3, 1),
 ('site_description', '站点描述', 'XXX公司', 'text', '', 'main', 4, 1),
-('site_logo', '站点标志', 'upload/2016/05/31/20160531213311334.png', 'file', '', 'main', 5, 1),
+('site_logo', '站点标志', 'upload/2016/06/07/20160607120423207.jpg', 'file', '', 'main', 5, 1),
 ('site_address', '公司地址', '北京', 'text', '', 'main', 6, 1),
 ('icp', 'ICP备案证书号', '', 'text', '', 'main', 8, 1),
 ('tel', '电话', '400-688-9089', 'text', '', 'main', 9, 1),

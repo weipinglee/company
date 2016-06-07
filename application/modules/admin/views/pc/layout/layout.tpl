@@ -50,7 +50,7 @@
             管理中心<b>></b> <strong>{$here}</strong>
         </div>
         <div class="mainBox" style="">
-            <input type="hidden" name="uploadUrl"  value="{url:admin/base/upload}" />
+            <input type="hidden" name="uploadUrl"  value="{url:admin/index/upload}" />
             {content}
         </div>
     </div>

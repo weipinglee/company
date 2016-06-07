@@ -13,7 +13,7 @@
 <body>
 
 <div id="login">
-  <div class="dologo"></div>
+  <div class="" style="margin-bottom:10px;"><img src="{$logo}"></div>
 
   <form action="{url:admin/login/doLogin}" method="post" auto_submit redirect_url="{url:admin/system/configlist}">
    <ul>

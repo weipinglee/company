@@ -11,7 +11,10 @@ use \Library\tool;
 class loginController extends Yaf\Controller_Abstract{
 
     public function loginAction(){
-
+        $config = new configModel();
+        $logo = $config->getConfig('site_logo');
+        $logo = \Library\thumb::get($logo,188,66);
+        $this->getView()->assign('logo',$logo);
     }
 
     /**

@@ -34,7 +34,7 @@ function uploadImg(_this,uploadUrl){
             },
             error: function (data)//服务器响应失败处理函数
             {
-                alert(data);
+                alert(JSON.stringify(data));
             }
         }
     )

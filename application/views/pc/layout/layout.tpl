@@ -33,7 +33,7 @@
                         <div class="brand put-left">
                             <h1>
                                 <a href="index.html">
-                                    <img src="{$logo}" alt="Logo"/>
+                                    <img src="{$logo}" />
                                 </a>
                             </h1>
                         </div>

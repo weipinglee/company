@@ -13,7 +13,7 @@
 
       </ul>-->
       <div class="items">
-       <form action="{url:admin/system/configUpdate}" method="post" auto_submit redirect_url="{url:admin/index/index}">
+       <form action="{url:admin/system/configUpdate}" method="post" auto_submit redirect_url="{url:admin/system/configlist}">
         <input type="hidden" name="tab" value="main" />
         <div id="main">
         <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
