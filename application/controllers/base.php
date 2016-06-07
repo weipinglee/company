@@ -32,7 +32,7 @@ class baseController extends Yaf\Controller_Abstract{
         $access= $manager->checkAccess($this->admin_name,
             $this->getRequest()->getControllerName(),$leftNav);
         if(!$access){
-            $this->redirect(url::createUrl('admin/index/index'));
+            $this->redirect(url::createUrl('admin/system/configlist'));
             exit;
         }
 

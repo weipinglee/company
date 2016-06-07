@@ -27,9 +27,10 @@
         <div id="menu">
             {foreach:items=$nav}
                 {if:$key==1}
+                    <!--
                     <ul class="top">
                         <li><a href="{$item[0]['link']}"><i class="{$item[0]['icon']}"></i><em>{$item[0]['name_zh']}</em></a></li>
-                    </ul>
+                    </ul>-->
                 {else:}
                     <ul>
                         {foreach:items=$item key=$k item=$nav}

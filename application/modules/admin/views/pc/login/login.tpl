@@ -15,7 +15,7 @@
 <div id="login">
   <div class="dologo"></div>
 
-  <form action="{url:admin/login/doLogin}" method="post" auto_submit redirect_url="{url:admin/index/index}">
+  <form action="{url:admin/login/doLogin}" method="post" auto_submit redirect_url="{url:admin/system/configlist}">
    <ul>
     <li class="inpLi"><b>用户名：</b><span><input type="text" name="user_name"   class="inpLogin"></span></li>
 
